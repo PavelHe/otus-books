@@ -1,42 +1,43 @@
-package com.github.pavelhe.dao;
+package com.github.pavelhe.dao.jdbc;
 
 import java.util.*;
 
-import com.github.pavelhe.dao.mappers.*;
+import com.github.pavelhe.dao.*;
+import com.github.pavelhe.dao.jdbc.mappers.*;
 import com.github.pavelhe.model.*;
 import org.springframework.jdbc.core.namedparam.*;
 import org.springframework.stereotype.*;
 
 @Repository
-public class BookDaoImpl implements BookDao {
+public class BookDaoJdbcImpl implements BookDao {
 
     private NamedParameterJdbcOperations jdbc;
 
-    private static final String SELECT = "SELECT b.id, b.name AS book_name, b.description, g.id AS genre_id, g.name AS genre_name, " +
-            "a.id AS author_id, a.name AS author_name, a.surname AS author_surname \n" +
-            "FROM book AS b \n" +
-            "INNER JOIN genre g ON g.id=b.genre_id\n" +
-            "INNER JOIN author a ON a.id=b.author_id";
-
-    public BookDaoImpl(NamedParameterJdbcOperations jdbc) {
+    public BookDaoJdbcImpl(NamedParameterJdbcOperations jdbc) {
         this.jdbc = jdbc;
     }
 
     @Override
     public Long count() {
-        return jdbc.queryForObject("SELECT COUNT(*) FROM book", new HashMap<>(), Long.class);
+        return jdbc.queryForObject("SELECT COUNT(*) FROM book", Collections.emptyMap(), Long.class);
     }
 
     @Override
     public List<Book> getAll() {
-        return jdbc.query(SELECT, new HashMap<>(), new BookMapper());
+        return jdbc.query("SELECT b.id, b.name AS book_name, b.description, g.id AS genre_id, g.name AS genre_name, " +
+                "a.id AS author_id, a.name AS author_name, a.surname AS author_surname \n" +
+                "FROM book AS b \n" +
+                "INNER JOIN genre g ON g.id=b.genre_id\n" +
+                "INNER JOIN author a ON a.id=b.author_id;", Collections.emptyMap(), new BookMapper());
     }
 
     @Override
     public Book getById(Long id) {
-        Map<String, Object> params = new HashMap<>();
-        params.put("id", id);
-        return jdbc.queryForObject(SELECT + " WHERE b.id=:id;", params, new BookMapper());
+        return jdbc.queryForObject("SELECT b.id, b.name AS book_name, b.description, g.id AS genre_id, g.name AS genre_name, " +
+                "a.id AS author_id, a.name AS author_name, a.surname AS author_surname \n" +
+                "FROM book AS b \n" +
+                "INNER JOIN genre g ON g.id=b.genre_id\n" +
+                "INNER JOIN author a ON a.id=b.author_id WHERE b.id=:id;", Collections.singletonMap("id", id), new BookMapper());
     }
 
     @Override

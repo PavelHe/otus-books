@@ -23,7 +23,7 @@ public class BookCommands {
     @ShellMethod("Books count in DB")
     public String booksCount() {
         Long booksCount = bookService.count();
-        return messageSource.getMessage("booksCount", new Object[]{booksCount});
+        return messageSource.getMessage("books.count", new Object[]{booksCount});
     }
 
     @ShellMethod("Get all books")
@@ -43,13 +43,13 @@ public class BookCommands {
                              @ShellOption Long authorId, @ShellOption String description) {
         Book book = new Book(bookName, description);
         bookService.create(book, authorId, genreId);
-        return messageSource.getMessage("createBook");
+        return messageSource.getMessage("create.book");
     }
 
-    @ShellMethod("Remove author by ID")
+    @ShellMethod("Remove book by ID")
     public String removeBookById(@ShellOption Long bookId) {
         bookService.remove(bookId);
-        return messageSource.getMessage("removeBookById", new Object[]{bookId});
+        return messageSource.getMessage("remove.book.by.id", new Object[]{bookId});
     }
 
     @ShellMethod("Update book genre")
@@ -58,7 +58,7 @@ public class BookCommands {
         Genre newGenre = genreService.getById(newGenreId);
         book.setGenre(newGenre);
         bookService.update(book);
-        return messageSource.getMessage("updateBookGenre", new Object[]{newGenre.getName()});
+        return messageSource.getMessage("update.book.genre", new Object[]{newGenre.getName()});
     }
 
     @ShellMethod("Update book author")
@@ -67,7 +67,7 @@ public class BookCommands {
         Author newAuthor = authorService.getById(newAuthorId);
         book.setAuthor(newAuthor);
         bookService.update(book);
-        return messageSource.getMessage("updateBookAuthor", new Object[]{newAuthor.getName()});
+        return messageSource.getMessage("update.book.author", new Object[]{newAuthor.getName()});
     }
 
     @ShellMethod("Update name and description of book")
@@ -76,7 +76,7 @@ public class BookCommands {
         book.setName(bookName);
         book.setDescription(desc);
         bookService.update(book);
-        return messageSource.getMessage("updateBook");
+        return messageSource.getMessage("update.book");
     }
 
 }

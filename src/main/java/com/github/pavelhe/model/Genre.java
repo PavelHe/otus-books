@@ -14,6 +14,11 @@ public class Genre extends NamedModel {
         super(id, name);
     }
 
+    public Genre(Genre genre) {
+        genre.setId(getId());
+        genre.setName(getName());
+    }
+
     @Override
     public String toString() {
         return "Genre{" +

@@ -1,43 +1,40 @@
-package com.github.pavelhe.dao;
+package com.github.pavelhe.dao.jdbc;
 
 import java.util.*;
 
-import com.github.pavelhe.dao.mappers.*;
+import com.github.pavelhe.dao.*;
+import com.github.pavelhe.dao.jdbc.mappers.*;
 import com.github.pavelhe.model.*;
 import org.springframework.jdbc.core.namedparam.*;
 import org.springframework.stereotype.*;
 
 @Repository
-public class AuthorDaoImpl implements AuthorDao {
+public class AuthorDaoJdbcImpl implements AuthorDao {
 
     private NamedParameterJdbcOperations jdbc;
 
-    public AuthorDaoImpl(NamedParameterJdbcOperations jdbc) {
+    public AuthorDaoJdbcImpl(NamedParameterJdbcOperations jdbc) {
         this.jdbc = jdbc;
     }
 
     @Override
     public Long count() {
-        return jdbc.queryForObject("SELECT COUNT(*) FROM author", new HashMap<>(), Long.class);
+        return jdbc.queryForObject("SELECT COUNT(*) FROM author", Collections.emptyMap(), Long.class);
     }
 
     @Override
     public List<Author> getAll() {
-        return jdbc.query("SELECT * FROM author", new HashMap<>(), new AuthorMapper());
+        return jdbc.query("SELECT * FROM author", Collections.emptyMap(), new AuthorMapper());
     }
 
     @Override
     public Author getById(Long id) {
-        Map<String, Object> params = new HashMap<>();
-        params.put("id", id);
-        return jdbc.queryForObject("SELECT * FROM author WHERE id=:id", params, new AuthorMapper());
+        return jdbc.queryForObject("SELECT * FROM author WHERE id=:id", Collections.singletonMap("id", id), new AuthorMapper());
     }
 
     @Override
     public void remove(Long id) {
-        Map<String, Object> params = new HashMap<>();
-        params.put("id", id);
-        jdbc.update("DELETE FROM author WHERE id=:id", params);
+        jdbc.update("DELETE FROM author WHERE id=:id", Collections.singletonMap("id", id));
     }
 
     @Override

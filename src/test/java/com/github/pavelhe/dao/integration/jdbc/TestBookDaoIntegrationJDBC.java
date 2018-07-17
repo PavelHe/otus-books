@@ -1,7 +1,8 @@
-package com.github.pavelhe.dao.integration;
+package com.github.pavelhe.dao.integration.jdbc;
 
 
 import com.github.pavelhe.dao.*;
+import com.github.pavelhe.dao.integration.*;
 import com.github.pavelhe.model.*;
 import org.junit.*;
 import org.springframework.beans.factory.annotation.*;
@@ -12,7 +13,7 @@ import static org.junit.Assert.*;
 public class TestBookDaoIntegrationJDBC extends AbstractDaoIntegrationTestClass {
 
     @Autowired
-    @Qualifier("testBookDao")
+    @Qualifier("testBookJdbcDao")
     private BookDao bookDao;
 
     @Override

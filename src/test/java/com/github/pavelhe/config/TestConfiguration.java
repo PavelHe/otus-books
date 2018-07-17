@@ -3,6 +3,7 @@ package com.github.pavelhe.config;
 import javax.sql.*;
 
 import com.github.pavelhe.dao.*;
+import com.github.pavelhe.dao.jdbc.*;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.boot.jdbc.*;
 import org.springframework.context.annotation.*;
@@ -45,18 +46,18 @@ public class TestConfiguration {
     }
 
     @Bean
-    public AuthorDao testAuthorDao() throws Exception {
-        return new AuthorDaoImpl(jdbcTemplate());
+    public AuthorDao testAuthorJdbcDao() throws Exception {
+        return new AuthorDaoJdbcImpl(jdbcTemplate());
     }
 
     @Bean
-    public GenreDao testGenreDao() throws Exception {
-        return new GenreDaoImpl(jdbcTemplate());
+    public GenreDao testGenreJdbcDao() throws Exception {
+        return new GenreDaoJdbcImpl(jdbcTemplate());
     }
 
     @Bean
-    public BookDao testBookDao() throws Exception {
-        return new BookDaoImpl(jdbcTemplate());
+    public BookDao testBookJdbcDao() throws Exception {
+        return new BookDaoJdbcImpl(jdbcTemplate());
     }
 
     @Bean

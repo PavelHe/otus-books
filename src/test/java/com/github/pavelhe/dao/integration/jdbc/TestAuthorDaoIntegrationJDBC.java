@@ -1,8 +1,9 @@
-package com.github.pavelhe.dao.integration;
+package com.github.pavelhe.dao.integration.jdbc;
 
 import java.util.*;
 
 import com.github.pavelhe.dao.*;
+import com.github.pavelhe.dao.integration.*;
 import com.github.pavelhe.model.*;
 import org.junit.*;
 import org.springframework.beans.factory.annotation.*;
@@ -13,7 +14,7 @@ import static org.junit.Assert.*;
 public class TestAuthorDaoIntegrationJDBC extends AbstractDaoIntegrationTestClass {
 
     @Autowired
-    @Qualifier("testAuthorDao")
+    @Qualifier("testAuthorJdbcDao")
     private AuthorDao authorDao;
 
     @Override
