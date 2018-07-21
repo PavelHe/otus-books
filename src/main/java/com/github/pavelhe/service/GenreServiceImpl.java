@@ -4,6 +4,7 @@ import java.util.*;
 
 import com.github.pavelhe.dao.*;
 import com.github.pavelhe.model.*;
+import org.springframework.beans.factory.annotation.*;
 import org.springframework.stereotype.*;
 
 @Service
@@ -11,7 +12,7 @@ public class GenreServiceImpl implements GenreService {
 
     private GenreDao genreDao;
 
-    public GenreServiceImpl(GenreDao genreDao) {
+    public GenreServiceImpl(@Qualifier("genreDaoJpaImpl") GenreDao genreDao) {
         this.genreDao = genreDao;
     }
 
@@ -28,6 +29,11 @@ public class GenreServiceImpl implements GenreService {
     @Override
     public Genre getById(Long id) {
         return genreDao.getById(id);
+    }
+
+    @Override
+    public Genre getByName(String genreName) {
+        return genreDao.getByName(genreName);
     }
 
     @Override

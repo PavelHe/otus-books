@@ -4,6 +4,7 @@ import java.util.*;
 
 import com.github.pavelhe.dao.*;
 import com.github.pavelhe.model.*;
+import org.springframework.beans.factory.annotation.*;
 import org.springframework.stereotype.*;
 
 @Service
@@ -11,7 +12,7 @@ public class BookServiceImpl implements BookService {
 
     private BookDao bookDao;
 
-    public BookServiceImpl(BookDao bookDao) {
+    public BookServiceImpl(@Qualifier("bookDaoJpaImpl") BookDao bookDao) {
         this.bookDao = bookDao;
     }
 
@@ -28,6 +29,11 @@ public class BookServiceImpl implements BookService {
     @Override
     public Book getById(Long id) {
         return bookDao.getById(id);
+    }
+
+    @Override
+    public Book getByName(String bookName) {
+        return bookDao.getByName(bookName);
     }
 
     @Override

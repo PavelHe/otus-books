@@ -41,6 +41,15 @@ public class BookDaoJdbcImpl implements BookDao {
     }
 
     @Override
+    public Book getByName(String bookName) {
+        return jdbc.queryForObject("SELECT b.id, b.name AS book_name, b.description, g.id AS genre_id, g.name AS genre_name, " +
+                "a.id AS author_id, a.name AS author_name, a.surname AS author_surname \n" +
+                "FROM book AS b \n" +
+                "INNER JOIN genre g ON g.id=b.genre_id\n" +
+                "INNER JOIN author a ON a.id=b.author_id WHERE b.name=:name;", Collections.singletonMap("name", bookName), new BookMapper());
+    }
+
+    @Override
     public void remove(Long id) {
         jdbc.update("DELETE FROM book WHERE id=:id", Collections.singletonMap("id", id));
     }

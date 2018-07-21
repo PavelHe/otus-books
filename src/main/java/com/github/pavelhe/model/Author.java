@@ -1,11 +1,13 @@
 package com.github.pavelhe.model;
 
-
 import java.util.*;
+import javax.persistence.*;
 
+@Entity
 public class Author extends NamedModel {
 
     private String surname;
+    @OneToMany(mappedBy = "author", fetch = FetchType.EAGER)
     private Set<Book> books = new HashSet<>();
 
     public Author() {

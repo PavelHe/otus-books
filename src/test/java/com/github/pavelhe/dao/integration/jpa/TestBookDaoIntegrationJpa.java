@@ -1,5 +1,4 @@
-package com.github.pavelhe.dao.integration.jdbc;
-
+package com.github.pavelhe.dao.integration.jpa;
 
 import com.github.pavelhe.config.*;
 import com.github.pavelhe.dao.*;
@@ -10,21 +9,22 @@ import org.springframework.beans.factory.annotation.*;
 import org.springframework.test.context.*;
 import org.springframework.transaction.annotation.*;
 
+
 import static org.junit.Assert.*;
 
-@ContextConfiguration(classes = {TestBasicConfiguration.class, TestJDBCConfiguration.class})
-@Transactional(value = "testJdbcTransactionManager")
-public class TestBookDaoIntegrationJDBC extends AbstractDaoIntegrationTestClass {
+
+@ContextConfiguration(classes = {TestBasicConfiguration.class, TestJPAConfiguration.class})
+@Transactional(value = "testJpaTransactionManager")
+public class TestBookDaoIntegrationJpa extends AbstractDaoIntegrationTestClass {
 
     @Autowired
-    @Qualifier("testBookJdbcDao")
+    @Qualifier("testBookDaoJpa")
     private BookDao bookDao;
 
     @Override
     @Test
     public void testCount() throws Exception {
-        Long count = bookDao.count();
-        assertEquals(2, count.longValue());
+        assertEquals(2, bookDao.count().longValue());
     }
 
     @Override
@@ -38,8 +38,8 @@ public class TestBookDaoIntegrationJDBC extends AbstractDaoIntegrationTestClass 
     public void testGetById() throws Exception {
         Book book = bookDao.getById(1L);
         assertNotNull(book);
-        assertNotNull(book.getId());
-        assertEquals("Neverwhere", book.getName());
+        assertNotNull(book.getAuthor());
+        assertNotNull(book.getGenre());
     }
 
     @Override
@@ -51,31 +51,30 @@ public class TestBookDaoIntegrationJDBC extends AbstractDaoIntegrationTestClass 
     @Override
     @Test
     public void testCreate() throws Exception {
-        Book book = new Book("test name", "test description");
+        Book book = new Book("nameBook", "descBook");
+        assertNull(book.getId());
         bookDao.create(book, 1L, 1L);
-        assertEquals(3, bookDao.count().longValue());
         book = bookDao.getById(3L);
-        assertNotNull(book);
         assertNotNull(book.getId());
-        assertEquals("test name", book.getName());
+        assertNotNull(book.getGenre());
+        assertNotNull(book.getAuthor());
     }
 
     @Override
     @Test
     public void testRemove() throws Exception {
-        assertEquals(2, bookDao.count().longValue());
+        assertNotNull(bookDao.getById(1L));
         bookDao.remove(1L);
-        assertEquals(1, bookDao.count().longValue());
+        assertNull(bookDao.getById(1L));
     }
 
     @Override
     @Test
     public void testUpdate() throws Exception {
-        Book bookForUpdate = bookDao.getById(1L);
-        assertEquals("Neverwhere", bookForUpdate.getName());
-        bookForUpdate.setName("test name");
-        bookDao.update(bookForUpdate);
-        bookForUpdate = bookDao.getById(1L);
-        assertEquals("test name", bookForUpdate.getName());
+        Book book = bookDao.getById(1L);
+        assertNotEquals("test", book.getName());
+        book.setName("test");
+        bookDao.update(book);
+        assertEquals("test", bookDao.getById(1L).getName());
     }
 }

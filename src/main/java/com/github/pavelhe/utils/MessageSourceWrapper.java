@@ -11,6 +11,6 @@ public interface MessageSourceWrapper {
 
     String getMessage(String value);
 
-    String getMessage(String value, Object[] args);
+    String getMessage(String value, Object... args);
 
 }

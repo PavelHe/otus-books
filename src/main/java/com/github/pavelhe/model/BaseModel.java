@@ -1,8 +1,13 @@
 package com.github.pavelhe.model;
 
+import javax.persistence.*;
 
+@MappedSuperclass
 public abstract class BaseModel {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(nullable = false, unique = true)
     protected Long id;
 
     public BaseModel() {

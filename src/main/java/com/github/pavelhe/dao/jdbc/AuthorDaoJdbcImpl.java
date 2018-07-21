@@ -33,6 +33,11 @@ public class AuthorDaoJdbcImpl implements AuthorDao {
     }
 
     @Override
+    public Author getByName(String authorName) {
+        return jdbc.queryForObject("SELECT * FROM author WHERE name=:name", Collections.singletonMap("name", authorName), new AuthorMapper());
+    }
+
+    @Override
     public void remove(Long id) {
         jdbc.update("DELETE FROM author WHERE id=:id", Collections.singletonMap("id", id));
     }

@@ -23,7 +23,7 @@ public class BookCommands {
     @ShellMethod("Books count in DB")
     public String booksCount() {
         Long booksCount = bookService.count();
-        return messageSource.getMessage("books.count", new Object[]{booksCount});
+        return messageSource.getMessage("books.count", booksCount);
     }
 
     @ShellMethod("Get all books")
@@ -38,6 +38,11 @@ public class BookCommands {
         return book.toString();
     }
 
+    @ShellMethod("Get book by name")
+    public String getBookByName(@ShellOption String bookName) {
+        return bookService.getByName(bookName).toString();
+    }
+
     @ShellMethod("Create new book")
     public String createBook(@ShellOption String bookName, @ShellOption Long genreId,
                              @ShellOption Long authorId, @ShellOption String description) {
@@ -49,7 +54,7 @@ public class BookCommands {
     @ShellMethod("Remove book by ID")
     public String removeBookById(@ShellOption Long bookId) {
         bookService.remove(bookId);
-        return messageSource.getMessage("remove.book.by.id", new Object[]{bookId});
+        return messageSource.getMessage("remove.book.by.id", bookId);
     }
 
     @ShellMethod("Update book genre")
@@ -58,7 +63,7 @@ public class BookCommands {
         Genre newGenre = genreService.getById(newGenreId);
         book.setGenre(newGenre);
         bookService.update(book);
-        return messageSource.getMessage("update.book.genre", new Object[]{newGenre.getName()});
+        return messageSource.getMessage("update.book.genre", newGenre.getName());
     }
 
     @ShellMethod("Update book author")
@@ -67,7 +72,7 @@ public class BookCommands {
         Author newAuthor = authorService.getById(newAuthorId);
         book.setAuthor(newAuthor);
         bookService.update(book);
-        return messageSource.getMessage("update.book.author", new Object[]{newAuthor.getName()});
+        return messageSource.getMessage("update.book.author", newAuthor.getName());
     }
 
     @ShellMethod("Update name and description of book")

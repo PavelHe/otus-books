@@ -4,6 +4,7 @@ import java.util.*;
 
 import com.github.pavelhe.dao.*;
 import com.github.pavelhe.model.*;
+import org.springframework.beans.factory.annotation.*;
 import org.springframework.stereotype.*;
 
 @Service
@@ -11,7 +12,7 @@ public class AuthorServiceImpl implements AuthorService {
 
     private AuthorDao authorDao;
 
-    public AuthorServiceImpl(AuthorDao authorDao) {
+    public AuthorServiceImpl(@Qualifier("authorDaoJpaImpl") AuthorDao authorDao) {
         this.authorDao = authorDao;
     }
 
@@ -28,6 +29,11 @@ public class AuthorServiceImpl implements AuthorService {
     @Override
     public Author getById(Long id) {
         return authorDao.getById(id);
+    }
+
+    @Override
+    public Author getByName(String authorName) {
+        return authorDao.getByName(authorName);
     }
 
     @Override

@@ -33,6 +33,11 @@ public class GenreDaoJdbcImpl implements GenreDao {
     }
 
     @Override
+    public Genre getByName(String genreName) {
+        return jdbc.queryForObject("SELECT * FROM genre WHERE name=:name", Collections.singletonMap("name", genreName), new GenreMapper());
+    }
+
+    @Override
     public void remove(Long id) {
         jdbc.update("DELETE FROM genre WHERE id=:id", Collections.singletonMap("id", id));
     }

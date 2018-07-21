@@ -1,6 +1,4 @@
-package com.github.pavelhe.dao.integration.jdbc;
-
-import java.util.*;
+package com.github.pavelhe.dao.integration.jpa;
 
 import com.github.pavelhe.config.*;
 import com.github.pavelhe.dao.*;
@@ -11,29 +9,28 @@ import org.springframework.beans.factory.annotation.*;
 import org.springframework.test.context.*;
 import org.springframework.transaction.annotation.*;
 
+
 import static org.junit.Assert.*;
 
-@ContextConfiguration(classes = {TestBasicConfiguration.class, TestJDBCConfiguration.class})
-@Transactional(value = "testJdbcTransactionManager")
-public class TestAuthorDaoIntegrationJDBC extends AbstractDaoIntegrationTestClass {
+
+@ContextConfiguration(classes = {TestBasicConfiguration.class, TestJPAConfiguration.class})
+@Transactional(value = "testJpaTransactionManager")
+public class TestAuthorDaoIntegrationJPA extends AbstractDaoIntegrationTestClass {
 
     @Autowired
-    @Qualifier("testAuthorJdbcDao")
+    @Qualifier("testAuthorDaoJpa")
     private AuthorDao authorDao;
 
     @Override
     @Test
     public void testCount() throws Exception {
-        Long count = authorDao.count();
-        assertEquals(2, count.longValue());
+        assertEquals(2, authorDao.count().longValue());
     }
 
     @Override
     @Test
     public void testGetAll() throws Exception {
-        List<Author> authors = authorDao.getAll();
-        assertNotNull(authors);
-        assertEquals(2, authors.size());
+        assertEquals(2, authorDao.getAll().size());
     }
 
     @Override
@@ -41,7 +38,7 @@ public class TestAuthorDaoIntegrationJDBC extends AbstractDaoIntegrationTestClas
     public void testGetById() throws Exception {
         Author author = authorDao.getById(1L);
         assertNotNull(author);
-        assertNotNull(author.getId());
+        assertTrue(author.getBooks().size() > 0);
     }
 
     @Override
@@ -53,27 +50,28 @@ public class TestAuthorDaoIntegrationJDBC extends AbstractDaoIntegrationTestClas
     @Override
     @Test
     public void testCreate() throws Exception {
-        Author author = new Author("test name", "test surname");
+        Author author = new Author("test", "tesS");
         authorDao.create(author);
-        assertEquals(3, authorDao.getAll().size());
+        author = authorDao.getById(3L);
+        assertNotNull(author);
+        assertNotNull(author.getId());
     }
 
     @Override
     @Test
     public void testRemove() throws Exception {
-        assertEquals(2, authorDao.getAll().size());
+        assertNotNull(authorDao.getById(1L));
         authorDao.remove(1L);
-        assertEquals(1, authorDao.getAll().size());
+        assertNull(authorDao.getById(1L));
     }
 
     @Override
     @Test
     public void testUpdate() throws Exception {
         Author author = authorDao.getById(1L);
-        assertEquals("Neil", author.getName());
-        author.setName("Test");
+        assertNotEquals("test", author.getName());
+        author.setName("test");
         authorDao.update(author);
-        assertEquals("Test", authorDao.getById(1L).getName());
+        assertNotNull(authorDao.getByName("test"));
     }
-
 }

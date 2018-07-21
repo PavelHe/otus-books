@@ -13,6 +13,8 @@ public interface AuthorDao {
 
     Author getById(Long id);
 
+    Author getByName(String authorName);
+
     void remove(Long id);
 
     void create(Author author);

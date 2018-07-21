@@ -35,7 +35,7 @@ public class MessageSourceWrapperImpl implements MessageSourceWrapper {
     }
 
     @Override
-    public String getMessage(String value, Object[] args) {
+    public String getMessage(String value, Object... args) {
         return getMessage(value, args, validateLocale(null));
     }
 

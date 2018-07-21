@@ -1,10 +1,20 @@
 package com.github.pavelhe.model;
 
+import java.util.*;
+import javax.persistence.*;
 
+@Entity
 public class Book extends NamedModel {
 
+    @ManyToOne
     private Author author;
+    @ManyToOne
     private Genre genre;
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "comment_book",
+            joinColumns = @JoinColumn(name = "book_id"),
+            inverseJoinColumns = @JoinColumn(name = "comment_id"))
+    private Set<Comment> comments = new HashSet<>();
     private String description;
 
     public Book() {
@@ -52,6 +62,14 @@ public class Book extends NamedModel {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Set<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(Set<Comment> comments) {
+        this.comments = comments;
     }
 
     @Override

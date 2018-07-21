@@ -1,13 +1,18 @@
 package com.github.pavelhe.dao.integration.jdbc;
 
+import com.github.pavelhe.config.*;
 import com.github.pavelhe.dao.*;
 import com.github.pavelhe.dao.integration.*;
 import com.github.pavelhe.model.*;
 import org.junit.*;
 import org.springframework.beans.factory.annotation.*;
+import org.springframework.test.context.*;
+import org.springframework.transaction.annotation.*;
 
 import static org.junit.Assert.*;
 
+@ContextConfiguration(classes = {TestBasicConfiguration.class, TestJDBCConfiguration.class})
+@Transactional(value = "testJdbcTransactionManager")
 public class TestGenreDaoIntegrationJDBC extends AbstractDaoIntegrationTestClass {
 
     @Autowired
@@ -32,6 +37,12 @@ public class TestGenreDaoIntegrationJDBC extends AbstractDaoIntegrationTestClass
     public void testGetById() throws Exception {
         Genre fantasy = genreDao.getById(1L);
         assertEquals("Fantasy", fantasy.getName());
+    }
+
+    @Override
+    @Test
+    public void testGetByName() throws Exception {
+        assertNotNull(genreDao.getByName("Fantasy"));
     }
 
     @Override

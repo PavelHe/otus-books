@@ -1,6 +1,6 @@
 package com.github.pavelhe.dao.integration;
 
-import com.github.pavelhe.config.TestConfiguration;
+import com.github.pavelhe.config.*;
 import org.junit.runner.*;
 import org.springframework.boot.test.context.*;
 import org.springframework.test.context.*;
@@ -9,8 +9,6 @@ import org.springframework.transaction.annotation.*;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-@Transactional
-@ContextConfiguration(classes = TestConfiguration.class)
 public abstract class AbstractDaoIntegrationTestClass {
 
     public abstract void testCount() throws Exception;
@@ -18,6 +16,8 @@ public abstract class AbstractDaoIntegrationTestClass {
     public abstract void testGetAll() throws Exception;
 
     public abstract void testGetById() throws Exception;
+
+    public abstract void testGetByName() throws Exception;
 
     public abstract void testCreate() throws Exception;
 

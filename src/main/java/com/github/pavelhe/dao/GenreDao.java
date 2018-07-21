@@ -13,6 +13,8 @@ public interface GenreDao {
 
     Genre getById(Long id);
 
+    Genre getByName(String genreName);
+
     void remove(Long id);
 
     void create(Genre genre);

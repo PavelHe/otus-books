@@ -20,7 +20,7 @@ public class GenreCommands {
     @ShellMethod("Genre count in DB")
     public String genresCount() {
         Long genreCount = genreService.count();
-        return messageSource.getMessage("genres.count", new Object[]{genreCount});
+        return messageSource.getMessage("genres.count", genreCount);
     }
 
     @ShellMethod("Get all genres")
@@ -35,16 +35,21 @@ public class GenreCommands {
         return genre.toString();
     }
 
+    @ShellMethod("Get genre by name")
+    public String getGenreByName(@ShellOption String genreName) {
+        return genreService.getByName(genreName).toString();
+    }
+
     @ShellMethod("Create new genre")
     public String createGenre(@ShellOption String genreName) {
         genreService.create(new Genre(genreName));
-        return messageSource.getMessage("create.genre", new Object[]{genreName});
+        return messageSource.getMessage("create.genre", genreName);
     }
 
     @ShellMethod("Remove genre by ID")
     public String removeGenreById(@ShellOption Long genreId) {
         genreService.remove(genreId);
-        return messageSource.getMessage("remove.genre.by.id", new Object[]{genreId});
+        return messageSource.getMessage("remove.genre.by.id", genreId);
     }
 
     @ShellMethod("Update genre")
@@ -52,7 +57,7 @@ public class GenreCommands {
         Genre genre = genreService.getById(id);
         genre.setName(newGenreName);
         genreService.update(genre);
-        return messageSource.getMessage("update.genre", new Object[]{newGenreName});
+        return messageSource.getMessage("update.genre", newGenreName);
     }
 
 }

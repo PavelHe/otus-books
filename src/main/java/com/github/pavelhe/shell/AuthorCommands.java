@@ -20,7 +20,7 @@ public class AuthorCommands {
     @ShellMethod("Authors count in DB")
     public String authorsCount() {
         Long authorsCount = authorService.count();
-        return messageSource.getMessage("authors.count", new Object[]{authorsCount});
+        return messageSource.getMessage("authors.count", authorsCount);
     }
 
     @ShellMethod("Get all authors")
@@ -35,16 +35,21 @@ public class AuthorCommands {
         return author.toString();
     }
 
+    @ShellMethod("Get author by name")
+    public String getAuthorByName(@ShellOption String authorName) {
+        return authorService.getByName(authorName).toString();
+    }
+
     @ShellMethod("Create new author")
     public String createAuthor(@ShellOption String authorName, @ShellOption String surname) {
         authorService.create(new Author(authorName, surname));
-        return messageSource.getMessage("create.author", new Object[]{authorName});
+        return messageSource.getMessage("create.author", authorName);
     }
 
     @ShellMethod("Remove author by ID")
     public String removeAuthorById(@ShellOption Long authorId) {
         authorService.remove(authorId);
-        return messageSource.getMessage("remove.author.by.id", new Object[]{authorId});
+        return messageSource.getMessage("remove.author.by.id", authorId);
     }
 
     @ShellMethod("Update author")
