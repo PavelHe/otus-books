@@ -73,6 +73,11 @@ public class BookDaoJdbcImpl implements BookDao {
     }
 
     @Override
+    public void create(Book book) {
+        create(book, book.getGenre().getId(), book.getAuthor().getId());
+    }
+
+    @Override
     public void update(Book book) {
         Map<String, Object> params = new HashMap<>();
         params.put("id", book.getId());

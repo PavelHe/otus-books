@@ -24,7 +24,10 @@ public class TestAuthorDaoIntegrationJPA extends AbstractDaoIntegrationTestClass
     @Override
     @Test
     public void testCount() throws Exception {
-        assertEquals(2, authorDao.count().longValue());
+        Long oldSize = authorDao.count();
+        authorDao.create(new Author("test", "test"));
+        Long newSize = authorDao.count();
+        assertTrue(oldSize < newSize);
     }
 
     @Override
@@ -52,7 +55,7 @@ public class TestAuthorDaoIntegrationJPA extends AbstractDaoIntegrationTestClass
     public void testCreate() throws Exception {
         Author author = new Author("test", "tesS");
         authorDao.create(author);
-        author = authorDao.getById(3L);
+        author = authorDao.getByName("test");
         assertNotNull(author);
         assertNotNull(author.getId());
     }

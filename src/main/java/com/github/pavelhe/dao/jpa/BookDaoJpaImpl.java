@@ -16,7 +16,7 @@ public class BookDaoJpaImpl implements BookDao {
 
     @Override
     public Long count() {
-        return (long) entityManager.createQuery("FROM Book b").getResultList().size();
+        return entityManager.createQuery("SELECT COUNT(b) FROM Book b", Long.class).getSingleResult();
     }
 
     @Override
@@ -30,6 +30,7 @@ public class BookDaoJpaImpl implements BookDao {
     }
 
     @Override
+    @Transactional
     public Book getByName(String bookName) {
         TypedQuery<Book> byNameQuery = entityManager.createQuery("SELECT b FROM Book b WHERE b.name=:bookName", Book.class);
         byNameQuery.setParameter("bookName", bookName);
@@ -45,9 +46,13 @@ public class BookDaoJpaImpl implements BookDao {
     @Override
     @Transactional
     public void create(Book book, Long genreId, Long authorId) {
-        book.setGenre(entityManager.find(Genre.class, genreId));
-        book.setAuthor(entityManager.find(Author.class, authorId));
         entityManager.persist(book);
+    }
+
+    @Override
+    @Transactional
+    public void create(Book book) {
+        create(book, null, null);
     }
 
     @Override

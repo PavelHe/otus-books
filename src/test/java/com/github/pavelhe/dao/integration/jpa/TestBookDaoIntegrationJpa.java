@@ -24,7 +24,10 @@ public class TestBookDaoIntegrationJpa extends AbstractDaoIntegrationTestClass {
     @Override
     @Test
     public void testCount() throws Exception {
-        assertEquals(2, bookDao.count().longValue());
+        Long oldSize = bookDao.count();
+        bookDao.create(new Book());
+        Long newSize = bookDao.count();
+        assertTrue(oldSize < newSize);
     }
 
     @Override
@@ -53,8 +56,10 @@ public class TestBookDaoIntegrationJpa extends AbstractDaoIntegrationTestClass {
     public void testCreate() throws Exception {
         Book book = new Book("nameBook", "descBook");
         assertNull(book.getId());
-        bookDao.create(book, 1L, 1L);
-        book = bookDao.getById(3L);
+        book.setGenre(new Genre(1L, "mock"));
+        book.setAuthor(new Author(1L, "mock", "mock"));
+        bookDao.create(book);
+        book = bookDao.getByName("nameBook");
         assertNotNull(book.getId());
         assertNotNull(book.getGenre());
         assertNotNull(book.getAuthor());

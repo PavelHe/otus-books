@@ -24,7 +24,10 @@ public class TestGenreDaoIntegrationJPA extends AbstractDaoIntegrationTestClass 
     @Override
     @Test
     public void testCount() throws Exception {
-        assertEquals(2, genreDao.count().longValue());
+        Long oldSize = genreDao.count();
+        genreDao.create(new Genre());
+        Long newSize = genreDao.count();
+        assertTrue(oldSize < newSize);
     }
 
     @Override
@@ -52,7 +55,7 @@ public class TestGenreDaoIntegrationJPA extends AbstractDaoIntegrationTestClass 
     public void testCreate() throws Exception {
         Genre genre = new Genre("test");
         genreDao.create(genre);
-        assertNotNull(genreDao.getById(3L));
+        assertNotNull(genreDao.getByName("test"));
     }
 
     @Override

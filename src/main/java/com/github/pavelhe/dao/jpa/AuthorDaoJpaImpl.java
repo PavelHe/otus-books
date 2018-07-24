@@ -16,7 +16,7 @@ public class AuthorDaoJpaImpl implements AuthorDao {
 
     @Override
     public Long count() {
-        return (long) entityManager.createQuery("FROM Author a").getResultList().size();
+        return entityManager.createQuery("SELECT COUNT(a) FROM Author a", Long.class).getSingleResult();
     }
 
     @Override

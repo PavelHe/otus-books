@@ -21,9 +21,11 @@ public class TestCommentDaoIntegrationJpa extends AbstractDaoIntegrationTestClas
 
     @Override
     @Test
-    @Transactional
     public void testCount() throws Exception {
-        assertEquals(1, commentDao.count().longValue());
+        Long oldSize = commentDao.count();
+        commentDao.create(new Comment("test", "test"), 1L);
+        Long newSize = commentDao.count();
+        assertTrue(oldSize < newSize);
     }
 
     @Override
@@ -53,7 +55,7 @@ public class TestCommentDaoIntegrationJpa extends AbstractDaoIntegrationTestClas
         Comment comment = new Comment("create", "create");
         assertNull(comment.getId());
         commentDao.create(comment, 1L);
-        comment = commentDao.getById(1L);
+        comment = commentDao.getByName("create").get(0);
         assertNotNull(comment.getId());
         assertTrue(comment.getBooks().size() > 0);
     }

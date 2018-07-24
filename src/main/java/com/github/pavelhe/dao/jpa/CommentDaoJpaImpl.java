@@ -16,7 +16,7 @@ public class CommentDaoJpaImpl implements CommentDao {
 
     @Override
     public Long count() {
-        return (long) entityManager.createQuery("FROM Comment c").getResultList().size();
+        return entityManager.createQuery("SELECT COUNT(c) FROM Comment c", Long.class).getSingleResult();
     }
 
     @Override

@@ -47,7 +47,9 @@ public class BookCommands {
     public String createBook(@ShellOption String bookName, @ShellOption Long genreId,
                              @ShellOption Long authorId, @ShellOption String description) {
         Book book = new Book(bookName, description);
-        bookService.create(book, authorId, genreId);
+        book.setAuthor(authorService.getById(authorId));
+        book.setGenre(genreService.getById(genreId));
+        bookService.create(book);
         return messageSource.getMessage("create.book");
     }
 

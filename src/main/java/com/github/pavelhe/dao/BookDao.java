@@ -19,5 +19,7 @@ public interface BookDao {
 
     void create(Book book, Long genreId, Long authorId);
 
+    void create(Book book);
+
     void update(Book book);
 }
