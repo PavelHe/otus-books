@@ -81,18 +81,6 @@ public class TestGenreRepository extends AbstractDaoIntegrationTestClass {
         assertFalse(genreOptional.isPresent());
     }
 
-    @Test
-    public void testRemoveByIdSuccessfully() throws Exception {
-        boolean wasRemoved = genreRepository.delete(1L) == 1;
-        assertTrue(wasRemoved);
-    }
-
-    @Test
-    public void testRemoveByIdUnsuccessfully() throws Exception {
-        boolean notRemoved = genreRepository.delete(1000000L) == 0;
-        assertTrue(notRemoved);
-    }
-
     @Override
     @Test
     public void testUpdate() throws Exception {

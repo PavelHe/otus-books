@@ -11,10 +11,6 @@ public interface BookRepository extends CrudRepository<Book, Long> {
 
     List<Book> findAll();
 
-    @Modifying
-    @Query("DELETE FROM Book b WHERE b.id=?1")
-    int delete(Long id);
-
     Optional<Book> findByName(String name);
 
 }

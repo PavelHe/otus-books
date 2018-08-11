@@ -11,10 +11,6 @@ public interface AuthorRepository extends CrudRepository<Author, Long> {
 
     List<Author> findAll();
 
-    @Modifying
-    @Query("DELETE FROM Author a WHERE a.id=?1")
-    int delete(Long id);
-
     Optional<Author> findByName(String name);
 
 }

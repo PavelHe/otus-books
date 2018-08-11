@@ -82,18 +82,6 @@ public class TestAuthorRepository extends AbstractDaoIntegrationTestClass {
         assertFalse(authorOptional.isPresent());
     }
 
-    @Test
-    public void testRemoveByIdSuccessfully() throws Exception {
-        boolean wasRemoved = authorRepository.delete(1L) == 1;
-        assertTrue(wasRemoved);
-    }
-
-    @Test
-    public void testRemoveByIdUnsuccessfully() throws Exception {
-        boolean notRemoved = authorRepository.delete(1000000L) == 0;
-        assertTrue(notRemoved);
-    }
-
     @Override
     @Test
     public void testUpdate() throws Exception {

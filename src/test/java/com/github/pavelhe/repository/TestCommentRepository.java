@@ -80,18 +80,6 @@ public class TestCommentRepository extends AbstractDaoIntegrationTestClass {
         assertFalse(commentOptional.isPresent());
     }
 
-    @Test
-    public void testRemoveByIdSuccessfully() throws Exception {
-        boolean wasRemoved = commentRepository.delete(1L) == 1;
-        assertTrue(wasRemoved);
-    }
-
-    @Test
-    public void testRemoveByIdUnsuccessfully() throws Exception {
-        boolean notRemoved = commentRepository.delete(1000000L) == 0;
-        assertTrue(notRemoved);
-    }
-
     @Override
     @Test
     public void testUpdate() throws Exception {
