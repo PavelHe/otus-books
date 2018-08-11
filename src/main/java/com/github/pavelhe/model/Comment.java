@@ -4,7 +4,10 @@ import java.time.*;
 import java.util.*;
 import javax.persistence.*;
 
+import org.springframework.data.mongodb.core.mapping.*;
+
 @Entity
+@Document
 public class Comment extends NamedModel {
 
     private String text;
@@ -14,6 +17,7 @@ public class Comment extends NamedModel {
     @JoinTable(name = "comment_book",
             joinColumns = @JoinColumn(name = "comment_id"),
             inverseJoinColumns = @JoinColumn(name = "book_id"))
+    @DBRef
     private Set<Book> books = new HashSet<>();
 
     public Comment() {

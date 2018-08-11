@@ -10,6 +10,7 @@ import org.springframework.shell.standard.*;
 public class CommentCommands {
 
     @Autowired
+    @Qualifier("commentServiceImpl")
     private CommentService commentService;
     @Autowired
     private MessageSourceWrapper messageSource;

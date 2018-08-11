@@ -12,6 +12,7 @@ import org.springframework.shell.standard.*;
 public class GenreCommands {
 
     @Autowired
+    @Qualifier("genreServiceImpl")
     private GenreService genreService;
     @Autowired
     private MessageSourceWrapper messageSource;

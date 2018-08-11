@@ -12,10 +12,13 @@ import org.springframework.shell.standard.*;
 public class BookCommands {
 
     @Autowired
+    @Qualifier("bookServiceImpl")
     private BookService bookService;
     @Autowired
+    @Qualifier("genreServiceImpl")
     private GenreService genreService;
     @Autowired
+    @Qualifier("authorServiceImpl")
     private AuthorService authorService;
     @Autowired
     private MessageSourceWrapper messageSource;

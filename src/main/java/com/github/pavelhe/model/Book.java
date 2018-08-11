@@ -3,17 +3,23 @@ package com.github.pavelhe.model;
 import java.util.*;
 import javax.persistence.*;
 
+import org.springframework.data.mongodb.core.mapping.*;
+
 @Entity
+@Document
 public class Book extends NamedModel {
 
     @ManyToOne
+    @DBRef
     private Author author;
     @ManyToOne
+    @DBRef
     private Genre genre;
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "comment_book",
             joinColumns = @JoinColumn(name = "book_id"),
             inverseJoinColumns = @JoinColumn(name = "comment_id"))
+    @DBRef
     private Set<Comment> comments = new HashSet<>();
     private String description;
 

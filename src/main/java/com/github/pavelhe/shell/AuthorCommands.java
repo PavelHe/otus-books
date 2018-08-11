@@ -12,6 +12,7 @@ import org.springframework.shell.standard.*;
 public class AuthorCommands {
 
     @Autowired
+    @Qualifier("authorServiceImpl")
     private AuthorService authorService;
     @Autowired
     private MessageSourceWrapper messageSource;
