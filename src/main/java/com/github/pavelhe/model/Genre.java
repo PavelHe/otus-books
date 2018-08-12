@@ -10,7 +10,7 @@ import org.springframework.data.mongodb.core.mapping.*;
 public class Genre extends NamedModel {
 
     @OneToMany(mappedBy = "genre", fetch = FetchType.EAGER)
-    @DBRef(lazy = true)
+    @DBRef
     private Set<Book> books = new HashSet<>();
 
     public Genre() {
