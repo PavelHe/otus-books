@@ -1,4 +1,4 @@
-package com.github.pavelhe.repository.mongodb;
+package com.github.pavelhe.service;
 
 import java.util.*;
 

@@ -1,7 +1,6 @@
-package com.github.pavelhe.repository.mongodb;
+package com.github.pavelhe.service;
 
 import com.github.pavelhe.model.*;
-import com.github.pavelhe.service.*;
 import org.junit.*;
 import org.springframework.beans.factory.annotation.*;
 

@@ -1,8 +1,7 @@
-package com.github.pavelhe.dao.integration.jpa;
+package com.github.pavelhe.dao.jpa;
 
 import com.github.pavelhe.config.*;
 import com.github.pavelhe.dao.*;
-import com.github.pavelhe.dao.integration.*;
 import com.github.pavelhe.model.*;
 import org.junit.*;
 import org.springframework.beans.factory.annotation.*;

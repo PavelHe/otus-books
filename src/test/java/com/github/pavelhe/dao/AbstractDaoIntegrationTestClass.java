@@ -1,4 +1,4 @@
-package com.github.pavelhe.dao.integration;
+package com.github.pavelhe.dao;
 
 import com.github.pavelhe.config.*;
 import org.junit.runner.*;
