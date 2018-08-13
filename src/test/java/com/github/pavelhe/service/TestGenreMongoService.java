@@ -53,6 +53,7 @@ public class TestGenreMongoService extends AbstractMongoDBIntegrationTestClass {
     @Test
     public void testCreate() throws Exception {
         Genre genre = createMockGenre();
+        genre = genreService.getByName(MOCK_NAME);
         assertEquals(MOCK_ID, genre.getId());
         assertEquals(MOCK_NAME, genre.getName());
     }

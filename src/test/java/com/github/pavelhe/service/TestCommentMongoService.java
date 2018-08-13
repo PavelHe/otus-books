@@ -54,6 +54,7 @@ public class TestCommentMongoService extends AbstractMongoDBIntegrationTestClass
     @Test
     public void testCreate() throws Exception {
         Comment comment = createMockComment();
+        comment = commentService.getByName(MOCK_NAME).get(0);
         assertEquals(MOCK_ID, comment.getId());
         assertEquals(MOCK_NAME, comment.getName());
     }
@@ -84,7 +85,7 @@ public class TestCommentMongoService extends AbstractMongoDBIntegrationTestClass
 
     private Comment createMockComment() {
         Comment comment = mockComment();
-        commentService.create(comment, null);
+        commentService.create(comment);
         return comment;
     }
 }

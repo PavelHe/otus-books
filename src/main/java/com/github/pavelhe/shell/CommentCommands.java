@@ -13,6 +13,9 @@ public class CommentCommands {
     @Qualifier("commentServiceImpl")
     private CommentService commentService;
     @Autowired
+    @Qualifier("bookServiceImpl")
+    private BookService bookService;
+    @Autowired
     private MessageSourceWrapper messageSource;
 
     @ShellMethod("Count of comments")
@@ -38,7 +41,8 @@ public class CommentCommands {
     @ShellMethod("Add comment to book")
     public String addComment(@ShellOption String nameOfAuthor, @ShellOption String text, @ShellOption Long bookId) {
         Comment comment = new Comment(nameOfAuthor, text);
-        commentService.create(comment, bookId);
+        comment.setBook(bookService.getById(bookId));
+        commentService.create(comment);
         return messageSource.getMessage("add.comment", bookId);
     }
 

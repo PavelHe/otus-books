@@ -45,7 +45,7 @@ public class CommentServiceMongoImpl implements CommentService {
     }
 
     @Override
-    public void create(Comment comment, Long bookId) {
+    public void create(Comment comment) {
         template.save(comment);
     }
 

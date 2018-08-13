@@ -41,8 +41,8 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public void create(Comment comment, Long bookId) {
-        commentDao.create(comment, bookId);
+    public void create(Comment comment) {
+        commentDao.create(comment);
     }
 
     @Override

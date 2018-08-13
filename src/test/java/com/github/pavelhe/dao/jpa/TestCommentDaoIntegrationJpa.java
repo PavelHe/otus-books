@@ -22,7 +22,7 @@ public class TestCommentDaoIntegrationJpa extends AbstractDaoIntegrationTestClas
     @Test
     public void testCount() throws Exception {
         Long oldSize = commentDao.count();
-        commentDao.create(new Comment("test", "test"), 1L);
+        commentDao.create(new Comment("test", "test"));
         Long newSize = commentDao.count();
         assertTrue(oldSize < newSize);
     }
@@ -44,7 +44,7 @@ public class TestCommentDaoIntegrationJpa extends AbstractDaoIntegrationTestClas
     @Override
     @Test
     public void testGetByName() throws Exception {
-        commentDao.create(new Comment("name", "text"), 1L);
+        commentDao.create(new Comment("name", "text"));
         assertNotNull(commentDao.getByName("name"));
     }
 
@@ -52,11 +52,15 @@ public class TestCommentDaoIntegrationJpa extends AbstractDaoIntegrationTestClas
     @Test
     public void testCreate() throws Exception {
         Comment comment = new Comment("create", "create");
+        comment.setBook(new Book(1L,"test", new Author(1L, "name", "surname"),
+                new Genre(1L, "test"), "desc"));
         assertNull(comment.getId());
-        commentDao.create(comment, 1L);
+        commentDao.create(comment);
         comment = commentDao.getByName("create").get(0);
         assertNotNull(comment.getId());
-        assertTrue(comment.getBooks().size() > 0);
+        Book book = comment.getBook();
+        assertNotNull(book);
+        assertEquals("test", book.getName());
     }
 
     @Override

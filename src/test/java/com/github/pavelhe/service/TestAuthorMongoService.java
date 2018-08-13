@@ -55,6 +55,7 @@ public class TestAuthorMongoService extends AbstractMongoDBIntegrationTestClass 
     @Test
     public void testCreate() throws Exception {
         Author author = createMockAuthor();
+        author = authorService.getByName(MOCK_NAME);
         assertEquals(MOCK_ID, author.getId());
         assertEquals(MOCK_NAME, author.getName());
     }

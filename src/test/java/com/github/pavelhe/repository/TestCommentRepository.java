@@ -46,7 +46,7 @@ public class TestCommentRepository extends AbstractDaoIntegrationTestClass {
         assertTrue(commentOptional.isPresent());
         Comment comment = commentOptional.get();
         assertNotNull(comment.getId());
-        assertTrue(comment.getBooks().size() > 0);
+        assertNotNull(comment.getBook());
     }
 
     @Override
@@ -55,19 +55,22 @@ public class TestCommentRepository extends AbstractDaoIntegrationTestClass {
         Comment comment = commentRepository.findByName("Alfred").get(0);
         assertNotNull(comment);
         assertNotNull(comment.getId());
-        assertTrue(comment.getBooks().size() > 0);
+        assertNotNull(comment.getBook());
     }
 
     @Override
     @Test
     public void testCreate() throws Exception {
         Comment comment = new Comment("testName", "testText");
+        comment.setBook(new Book(1L,"test", new Author(1L, "name", "surname"),
+                new Genre(1L, "test"), "desc"));
         assertNull(comment.getId());
         commentRepository.save(comment);
         comment = commentRepository.findByName("testName").get(0);
-        assertNotNull(comment);
         assertNotNull(comment.getId());
-        assertEquals("testName", comment.getName());
+        Book book = comment.getBook();
+        assertNotNull(book);
+        assertEquals("test", book.getName());
     }
 
     @Override

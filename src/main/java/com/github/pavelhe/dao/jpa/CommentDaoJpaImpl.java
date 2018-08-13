@@ -44,10 +44,7 @@ public class CommentDaoJpaImpl implements CommentDao {
 
     @Override
     @Transactional
-    public void create(Comment comment, Long bookId) {
-        Book book = entityManager.find(Book.class, bookId);
-        if (!comment.containsBook(book))
-            comment.addBook(book);
+    public void create(Comment comment) {
         entityManager.persist(comment);
     }
 

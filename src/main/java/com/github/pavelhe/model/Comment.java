@@ -1,7 +1,6 @@
 package com.github.pavelhe.model;
 
 import java.time.*;
-import java.util.*;
 import javax.persistence.*;
 
 import org.springframework.data.mongodb.core.mapping.*;
@@ -13,12 +12,9 @@ public class Comment extends NamedModel {
     private String text;
     @Column(name = "time_of_commit")
     private LocalDateTime timeOfCommit = LocalDateTime.now();
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "comment_book",
-            joinColumns = @JoinColumn(name = "comment_id"),
-            inverseJoinColumns = @JoinColumn(name = "book_id"))
+    @ManyToOne
     @DBRef
-    private Set<Book> books = new HashSet<>();
+    private Book book;
 
     public Comment() {
 
@@ -41,12 +37,12 @@ public class Comment extends NamedModel {
         this.text = text;
     }
 
-    public Set<Book> getBooks() {
-        return books;
+    public Book getBook() {
+        return book;
     }
 
-    public void setBooks(Set<Book> books) {
-        this.books = books;
+    public void setBook(Book book) {
+        this.book = book;
     }
 
     public LocalDateTime getTimeOfCommit() {
@@ -55,15 +51,6 @@ public class Comment extends NamedModel {
 
     public void setTimeOfCommit(LocalDateTime timeOfCommit) {
         this.timeOfCommit = timeOfCommit;
-    }
-
-    public void addBook(Book book) {
-        if (Objects.nonNull(book))
-            books.add(book);
-    }
-
-    public boolean containsBook(Book book) {
-        return books.contains(book);
     }
 
     @Override

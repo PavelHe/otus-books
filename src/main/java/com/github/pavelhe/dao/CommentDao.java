@@ -17,7 +17,7 @@ public interface CommentDao {
 
     void remove(Long id);
 
-    void create(Comment comment, Long bookId);
+    void create(Comment comment);
 
     void update(Comment comment);
 }

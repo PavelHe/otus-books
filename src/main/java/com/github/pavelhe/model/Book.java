@@ -2,6 +2,7 @@ package com.github.pavelhe.model;
 
 import java.util.*;
 import javax.persistence.*;
+import javax.persistence.Entity;
 
 import org.springframework.data.mongodb.core.mapping.*;
 
@@ -9,19 +10,16 @@ import org.springframework.data.mongodb.core.mapping.*;
 @Document
 public class Book extends NamedModel {
 
+    private String description;
     @ManyToOne
     @DBRef
     private Author author;
     @ManyToOne
     @DBRef
     private Genre genre;
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "comment_book",
-            joinColumns = @JoinColumn(name = "book_id"),
-            inverseJoinColumns = @JoinColumn(name = "comment_id"))
+    @OneToMany(mappedBy = "book", fetch = FetchType.EAGER)
     @DBRef
     private Set<Comment> comments = new HashSet<>();
-    private String description;
 
     public Book() {
     }
