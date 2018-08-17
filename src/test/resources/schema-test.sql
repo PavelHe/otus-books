@@ -24,6 +24,7 @@ CREATE TABLE `book` (
   `genre_id`    BIGINT          DEFAULT NULL,
   `author_id`   BIGINT          DEFAULT NULL,
   `description` VARCHAR(200)    DEFAULT NULL,
+  `photo`       LONGBLOB        DEFAULT NULL,
   PRIMARY KEY (`id`),
   CONSTRAINT `book_authors` FOREIGN KEY (`author_id`) REFERENCES `author` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `book_genres` FOREIGN KEY (`genre_id`) REFERENCES `genre` (`id`) ON DELETE CASCADE ON UPDATE CASCADE

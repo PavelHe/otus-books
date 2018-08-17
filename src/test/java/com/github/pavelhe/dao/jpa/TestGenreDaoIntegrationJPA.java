@@ -24,7 +24,7 @@ public class TestGenreDaoIntegrationJPA extends AbstractDaoIntegrationTestClass 
     @Test
     public void testCount() throws Exception {
         Long oldSize = genreDao.count();
-        genreDao.create(new Genre());
+        genreDao.create(mockGenre());
         Long newSize = genreDao.count();
         assertTrue(oldSize < newSize);
     }

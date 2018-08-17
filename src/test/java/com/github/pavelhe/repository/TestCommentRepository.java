@@ -28,7 +28,7 @@ public class TestCommentRepository extends AbstractDaoIntegrationTestClass {
     @Test
     public void testCount() throws Exception {
         long oldSize = commentRepository.count();
-        commentRepository.save(new Comment());
+        commentRepository.save(mockComment());
         long newSize = commentRepository.count();
         assertTrue(oldSize < newSize);
     }

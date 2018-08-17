@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="common/header :: common-header"/>
+<head>
+    <meta charset="UTF-8">
+    <title>Genres</title>
+</head>
+<body>
+
+<div th:replace="common/header :: main-menu-nav"/>
+
+<table id="genre-data-table" class="table table-striped table-bordered" style="width:100%">
+    <thead>
+    <tr>
+        <th th:text="#{web.name}">Name</th>
+        <th th:text="#{web.update}">Update</th>
+        <th th:text="#{web.delete}">Delete</th>
+    </tr>
+    </thead>
+    <tbody>
+    <th:block th:each="genre : ${genreList}" th:object="${genre}">
+        <tr>
+            <td th:text="*{name}">Genre name</td>
+            <td><a th:href="@{'/genre/update/' + ${genre.id}}" class="btn btn-info"><span
+                    th:text="#{web.update}">Update</span></a></td>
+            <td><a th:href="@{'/genre/delete/' + ${genre.id}}" class="btn btn-danger"><span th:text="#{web.delete}">Delete</span></a>
+            </td>
+        </tr>
+    </th:block>
+    </tbody>
+    <tfoot>
+    <tr>
+        <th th:text="#{web.name}">Name</th>
+        <th th:text="#{web.update}">Update</th>
+        <th th:text="#{web.delete}">Delete</th>
+    </tr>
+    </tfoot>
+</table>
+
+<form action="#" th:action="@{/genre/add}" th:object="${genre}" method="post">
+    <div><span th:text="#{web.genre.name}">Genre name: </span><input type="text" th:field="*{name}"/></div>
+    <input type="hidden" th:field="*{id}">
+    <div><input type="submit" class="btn btn-info" value="Save" th:href="#{web.save}"/> <input type="reset"
+                                                                                               class="btn btn-danger"
+                                                                                               value="Reset"
+                                                                                               th:value="#{web.reset}"/>
+    </div>
+</form>
+
+<div th:replace="common/header :: body-bottom-scripts"/>
+<script>
+    $(document).ready(function () {
+        $('#genre-data-table').DataTable();
+    });
+</script>
+</body>
+</html>

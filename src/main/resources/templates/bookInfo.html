@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="common/header :: common-header"/>
+<head>
+    <meta charset="UTF-8">
+    <title>Book Information</title>
+</head>
+<body>
+<div th:replace="common/header :: main-menu-nav"/>
+
+<div class="col-xs-6">
+    <div>
+        <img src="#" th:src="@{'data:image/*;base64,'+ ${book.base64Photo()}}" height="300" width="400"/>
+    </div>
+    <ul th:object="${book}" class="list-group">
+        <li class="list-group-item" th:text="#{web.book.name} + *{name}">Book name</li>
+        <li class="list-group-item" th:text="#{web.author} + ': ' + *{author.getFullName()}">Author</li>
+        <li class="list-group-item" th:text="#{web.genre} + ': ' + *{genre.name}">Genre</li>
+        <li class="list-group-item" th:text="#{web.description} + ': ' + *{description}">Book description</li>
+    </ul>
+</div>
+
+<div th:replace="common/bookAddModal :: book-add-modal"/>
+
+<section th:replace="common/comments :: comments-block"/>
+
+<div th:replace="common/header :: body-bottom-scripts"/>
+</body>
+</html>

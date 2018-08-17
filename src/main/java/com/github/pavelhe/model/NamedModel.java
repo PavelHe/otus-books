@@ -1,10 +1,12 @@
 package com.github.pavelhe.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.*;
 
 @MappedSuperclass
 public abstract class NamedModel extends BaseModel {
 
+    @NotNull
     protected String name;
 
     public NamedModel() {

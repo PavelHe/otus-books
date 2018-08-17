@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="common/header :: common-header"/>
+<head>
+    <meta charset="UTF-8">
+    <title th:text="#{web.books}">Books</title>
+</head>
+<body>
+
+<div th:replace="common/header :: main-menu-nav"/>
+
+<table id="books-data-table" class="table table-striped table-bordered" style="width:100%">
+    <thead>
+    <tr>
+        <th th:text="#{web.name}">Name</th>
+        <th th:text="#{web.author}">Author</th>
+        <th th:text="#{web.genre}">Genre</th>
+        <th th:text="#{web.description}">Description</th>
+        <th th:text="#{web.more}">More</th>
+        <th th:text="#{web.delete}">Delete</th>
+    </tr>
+    </thead>
+    <tbody>
+    <th:block th:each="book : ${bookList}" th:object="${book}">
+        <tr>
+            <td th:text="*{name}">Book name</td>
+            <td th:text="*{author.getFullName()}">Author name</td>
+            <td th:text="*{genre.name}">Genre name</td>
+            <td th:text="*{description}">Book description</td>
+            <td><a th:href="@{'/book/info/' + ${book.id}}" class="btn btn-info"><span
+                    th:text="#{web.more}">Read more</span></a></td>
+            <td><a th:href="@{'/book/delete/' + ${book.id}}" class="btn btn-danger"><span
+                    th:text="#{web.delete}">Delete</span></a></td>
+        </tr>
+    </th:block>
+    </tbody>
+    <tfoot>
+    <tr>
+        <th th:text="#{web.name}">Name</th>
+        <th th:text="#{web.author}">Author</th>
+        <th th:text="#{web.genre}">Genre</th>
+        <th th:text="#{web.description}">Description</th>
+        <th th:text="#{web.more}">More</th>
+        <th th:text="#{web.delete}">Delete</th>
+    </tr>
+    </tfoot>
+</table>
+
+<div th:replace="common/bookAddModal :: book-add-modal"/>
+
+<div th:replace="common/header :: body-bottom-scripts"/>
+<script>
+    $(document).ready(function () {
+        $('#books-data-table').DataTable();
+    });
+</script>
+</body>
+</html>

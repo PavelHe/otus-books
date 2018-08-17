@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+</head>
+<body>
+<section class="container" th:fragment="comments-block">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel">
+                <div class="panel-body">
+                    <form action="#" th:action="@{/comment/add}" th:object="${comment}" method="post">
+                        <input type="hidden" name="bookId" th:value="${book.id}">
+                        <input type="text" th:field="*{name}">
+                        <textarea class="form-control" rows="2" placeholder="You'r comment"
+                                  th:field="*{text}"></textarea>
+                        <div class="mar-top clearfix">
+                            <button class="btn btn-sm btn-primary pull-right" type="submit"><i
+                                    class="fa fa-pencil fa-fw"></i><span
+                                    th:text="#{web.add.comment}"> Add comment </span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <th:block th:each="comment : ${book.comments}" th:object="${comment}">
+                <div class="panel">
+                    <div class="panel-body">
+                        <div class="media-block">
+                            <div class="media-body">
+                                <div class="mar-btm">
+                                    <p th:utext="*{name}">Username</p>
+                                    <p class="text-muted text-sm" th:text="${comment.timeOfCommitToString()}">
+                                        19-01-2019</p>
+                                </div>
+                                <p th:text="*{text}">Comment</p>
+                                <a class="btn btn-sm btn-default btn-hover-primary" href="#"
+                                   th:href="@{'/comment/delete/' + ${comment.id}}"><span
+                                        th:text="#{web.remove.comment}">Remove comment</span></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </th:block>
+        </div>
+    </div>
+</section>
+</body>
+</html>

@@ -24,7 +24,7 @@ public class TestBookDaoIntegrationJpa extends AbstractDaoIntegrationTestClass {
     @Test
     public void testCount() throws Exception {
         Long oldSize = bookDao.count();
-        bookDao.create(new Book());
+        bookDao.create(mockBook());
         Long newSize = bookDao.count();
         assertTrue(oldSize < newSize);
     }

@@ -28,6 +28,7 @@ CREATE TABLE `book` (
   `genre_id`    BIGINT(20)          DEFAULT NULL,
   `author_id`   BIGINT(20)          DEFAULT NULL,
   `description` VARCHAR(200)        DEFAULT NULL,
+  `photo`       LONGBLOB            DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `book_authors_idx` (`author_id`),
   KEY `book_genres_idx` (`genre_id`),

@@ -1,6 +1,7 @@
 package com.github.pavelhe.model;
 
 import java.time.*;
+import java.time.format.*;
 import javax.persistence.*;
 
 import org.springframework.data.mongodb.core.mapping.*;
@@ -17,10 +18,11 @@ public class Comment extends NamedModel {
     private Book book;
 
     public Comment() {
-
+        name = "Anonymous";
     }
 
     public Comment(String text) {
+        this();
         this.text = text;
     }
 
@@ -51,6 +53,10 @@ public class Comment extends NamedModel {
 
     public void setTimeOfCommit(LocalDateTime timeOfCommit) {
         this.timeOfCommit = timeOfCommit;
+    }
+
+    public String timeOfCommitToString() {
+        return timeOfCommit.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm"));
     }
 
     @Override

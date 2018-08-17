@@ -27,7 +27,7 @@ public class TestBookRepository extends AbstractDaoIntegrationTestClass {
     @Test
     public void testCount() throws Exception {
         long oldSize = bookRepository.count();
-        bookRepository.save(new Book());
+        bookRepository.save(mockBook());
         long newSize = bookRepository.count();
         assertTrue(oldSize < newSize);
     }
@@ -56,12 +56,12 @@ public class TestBookRepository extends AbstractDaoIntegrationTestClass {
     @Override
     @Test
     public void testCreate() throws Exception {
-        bookRepository.save(new Book("testBook", "testDesc"));
-        Optional<Book> bookOptional = bookRepository.findByName("testBook");
+        bookRepository.save(mockBook());
+        Optional<Book> bookOptional = bookRepository.findByName("test");
         assertTrue(bookOptional.isPresent());
         Book book = bookOptional.get();
         assertNotNull(book.getId());
-        assertEquals("testBook", book.getName());
+        assertEquals("test", book.getName());
     }
 
     @Override

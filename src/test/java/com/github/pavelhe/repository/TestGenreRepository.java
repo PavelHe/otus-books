@@ -27,7 +27,7 @@ public class TestGenreRepository extends AbstractDaoIntegrationTestClass {
     @Test
     public void testCount() throws Exception {
         long oldSize = genreRepository.count();
-        genreRepository.save(new Genre());
+        genreRepository.save(mockGenre());
         long newSize = genreRepository.count();
         assertTrue(oldSize < newSize);
     }

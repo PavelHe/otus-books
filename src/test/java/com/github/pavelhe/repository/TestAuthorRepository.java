@@ -27,7 +27,7 @@ public class TestAuthorRepository extends AbstractDaoIntegrationTestClass {
     @Test
     public void testCount() throws Exception {
         long oldSize = authorRepository.count();
-        authorRepository.save(new Author());
+        authorRepository.save(mockAuthor());
         long newSize = authorRepository.count();
         assertTrue(oldSize < newSize);
     }

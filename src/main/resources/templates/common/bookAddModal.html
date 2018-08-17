@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+</head>
+<body>
+<div th:fragment="book-add-modal">
+
+    <input type="button"
+           class="btn btn-primary btn-block"
+           data-toggle="modal"
+           data-target="#bookAddModal"
+           value="Add/Update"
+           th:value="${(book.id eq null) ? 'Add Book' : 'Update Book'}"/>
+
+    <div class="modal fade" id="bookAddModal" tabindex="-1" role="dialog" aria-labelledby="bookAddModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="bookAddModalLabel">Add Book</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form action="#" th:action="@{/book/add}" th:object="${book}" method="post"
+                          enctype="multipart/form-data">
+                        <div class="form-group"><span th:text="#{web.book.name}">Book name: </span><input type="text"
+                                                                                                          th:field="*{name}"/>
+                        </div>
+                        <div class="form-group">
+                            <input type="hidden" th:field="*{id}">
+                            <label for="author-selector"><span th:text="#{web.author}"></span>
+                                <select id="author-selector" th:field="*{author}">
+                                    <option value=""> --</option>
+                                    <option th:each="author : ${authorList}"
+                                            th:value="${author.id}"
+                                            th:utext="${author.getFullName()}">
+                                    </option>
+                                </select>
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <label for="genre-selector"><span th:text="#{web.genre}">Genre</span>
+                                <select id="genre-selector" th:field="*{genre}">
+                                    <option value=""> --</option>
+                                    <option th:each="genre : ${genreList}"
+                                            th:value="${genre.id}"
+                                            th:utext="${genre.name}">
+                                    </option>
+                                </select>
+                            </label>
+                        </div>
+                        <div class="form-group"><span th:text="#{web.description}">Description: </span>
+                            <input type="text" th:field="*{description}"/></div>
+                        <div class="form-group"><input class="btn" type="file" name="photo" th:field="*{photo}"/></div>
+                        <div><input type="submit" class="btn btn-info" value="Save" th:value="#{web.save}"/> <input
+                                type="reset"
+                                class="btn btn-danger"
+                                value="Reset" th:value="#{web.reset}"/></div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <input type="button" class="btn btn-secondary" data-dismiss="modal" value="Cancel"
+                           th:value="#{web.cancel}"/>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

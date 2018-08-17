@@ -50,6 +50,10 @@ public class Author extends NamedModel {
         this.books = books;
     }
 
+    public String getFullName() {
+        return name + " " + surname;
+    }
+
     @Override
     public String toString() {
         return "Author{" +
