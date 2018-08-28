@@ -2,7 +2,7 @@ package com.github.pavelhe.service.mongodb;
 
 import java.util.*;
 
-import com.github.pavelhe.model.*;
+import com.github.pavelhe.model.mongodb.models.*;
 import org.springframework.data.mongodb.core.*;
 import org.springframework.data.mongodb.core.query.*;
 

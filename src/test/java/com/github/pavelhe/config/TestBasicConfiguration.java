@@ -2,6 +2,7 @@ package com.github.pavelhe.config;
 
 import javax.sql.*;
 
+import com.fasterxml.jackson.databind.*;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.boot.jdbc.*;
 import org.springframework.context.annotation.*;
@@ -39,5 +40,10 @@ public class TestBasicConfiguration {
         populator.addScript(new ClassPathResource("/data-test.sql"));
         DatabasePopulatorUtils.execute(populator, dataSource);
         return new NamedParameterJdbcTemplate(dataSource);
+    }
+
+    @Bean
+    public ObjectMapper objectMapper() {
+        return new ObjectMapper();
     }
 }

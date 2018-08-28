@@ -3,8 +3,8 @@ package com.github.pavelhe.service.mongodb;
 
 import java.util.*;
 
-import com.github.pavelhe.model.*;
-import com.github.pavelhe.service.*;
+import com.github.pavelhe.model.mongodb.models.*;
+import com.github.pavelhe.service.mongodb.interfaces.*;
 import org.springframework.data.mongodb.core.*;
 import org.springframework.stereotype.*;
 
@@ -44,11 +44,6 @@ public class BookServiceMongoImpl implements BookService {
     @Override
     public void remove(Long id) {
         template.findAndRemove(findByValueQuery("id", id), Book.class);
-    }
-
-    @Override
-    public void create(Book book, Long genreId, Long authorId) {
-        template.save(book);
     }
 
     @Override

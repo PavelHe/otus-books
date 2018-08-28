@@ -3,14 +3,13 @@ package com.github.pavelhe.model;
 import java.util.*;
 import javax.persistence.*;
 
-import org.springframework.data.mongodb.core.mapping.*;
+import com.fasterxml.jackson.annotation.*;
 
 @Entity
-@Document
 public class Genre extends NamedModel {
 
     @OneToMany(mappedBy = "genre", fetch = FetchType.EAGER)
-    @DBRef
+    @JsonIgnore
     private Set<Book> books = new HashSet<>();
 
     public Genre() {

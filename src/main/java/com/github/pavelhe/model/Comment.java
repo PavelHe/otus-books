@@ -4,17 +4,20 @@ import java.time.*;
 import java.time.format.*;
 import javax.persistence.*;
 
-import org.springframework.data.mongodb.core.mapping.*;
+import com.fasterxml.jackson.annotation.*;
+import com.fasterxml.jackson.databind.annotation.*;
+import com.fasterxml.jackson.datatype.jsr310.ser.*;
+
 
 @Entity
-@Document
 public class Comment extends NamedModel {
 
     private String text;
     @Column(name = "time_of_commit")
+    @JsonSerialize(using = LocalDateTimeSerializer.class)
     private LocalDateTime timeOfCommit = LocalDateTime.now();
     @ManyToOne
-    @DBRef
+    @JsonIgnore
     private Book book;
 
     public Comment() {

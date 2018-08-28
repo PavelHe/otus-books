@@ -1,18 +1,17 @@
 package com.github.pavelhe.web;
 
-import java.io.*;
-import java.util.*;
 import javax.validation.*;
 
 import com.github.pavelhe.model.*;
 import com.github.pavelhe.service.*;
 import org.springframework.beans.factory.annotation.*;
-import org.springframework.core.io.*;
 import org.springframework.stereotype.*;
 import org.springframework.ui.*;
 import org.springframework.validation.*;
+import org.springframework.web.bind.*;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.*;
+import org.springframework.web.multipart.support.*;
 
 @Controller
 public class BookController {
@@ -45,15 +44,18 @@ public class BookController {
     }
 
     @RequestMapping(value = "/book/add", method = RequestMethod.POST, headers = "content-type=multipart/*")
-    public String addBook(@ModelAttribute @Valid Book book, MultipartFile photo, Model model, BindingResult result) {
+    public String addBook(MultipartFile photo, @ModelAttribute @Valid Book book, BindingResult result) {
         if (result.hasErrors()) {
-            model.addAttribute("addError", true);
             return "redirect:/book";
         }
+
+        byte[] photoBytes = WebUtils.getBytesFromPhotoFile(photo);
+        book.setPhoto(photoBytes);
         if (book.getId() != null)
             bookService.update(book);
         else
             bookService.create(book);
+
         return "redirect:/book";
     }
 
@@ -65,11 +67,20 @@ public class BookController {
 
     @RequestMapping(value = "/book/info/{id}", method = RequestMethod.GET)
     public String getInformationAboutBook(@PathVariable("id") Long id, Model model) {
-        model.addAttribute("book", bookService.getById(id));
+        Book book = bookService.getById(id);
+        if (book.getPhoto() == null)
+            book.setDefaultPhoto();
+        model.addAttribute("book", book);
         model.addAttribute("authorList", authorService.getAll());
         model.addAttribute("genreList", genreService.getAll());
         model.addAttribute("comment", new Comment());
+        model.addAttribute("photo", WebUtils.base64Photo(book.getPhoto()));
         return "bookInfo";
+    }
+
+    @InitBinder
+    public void initBinder(ServletRequestDataBinder binder) {
+        binder.registerCustomEditor(byte[].class, new ByteArrayMultipartFileEditor());
     }
 
 }

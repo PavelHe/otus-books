@@ -3,7 +3,8 @@ package com.github.pavelhe.service;
 
 import java.util.*;
 
-import com.github.pavelhe.model.*;
+import com.github.pavelhe.model.mongodb.models.*;
+import com.github.pavelhe.service.mongodb.interfaces.*;
 import org.junit.*;
 import org.springframework.beans.factory.annotation.*;
 
@@ -13,7 +14,7 @@ public class TestCommentMongoService extends AbstractMongoDBIntegrationTestClass
 
     @Autowired
     @Qualifier("testMongoCommentService")
-    private CommentService commentService;
+    private com.github.pavelhe.service.mongodb.interfaces.CommentService commentService;
 
     @Override
     @Test

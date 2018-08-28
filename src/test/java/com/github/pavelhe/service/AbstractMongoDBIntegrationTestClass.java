@@ -3,7 +3,7 @@ package com.github.pavelhe.service;
 import java.util.*;
 
 import com.github.pavelhe.config.*;
-import com.github.pavelhe.model.*;
+import com.github.pavelhe.model.mongodb.models.*;
 import org.junit.*;
 import org.junit.runner.*;
 import org.springframework.boot.test.context.*;
