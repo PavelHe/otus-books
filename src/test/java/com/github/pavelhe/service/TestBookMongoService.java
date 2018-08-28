@@ -1,7 +1,8 @@
 package com.github.pavelhe.service;
 
 
-import com.github.pavelhe.model.*;
+import com.github.pavelhe.model.mongodb.models.*;
+import com.github.pavelhe.service.mongodb.interfaces.*;
 import org.junit.*;
 import org.springframework.beans.factory.annotation.*;
 
@@ -13,7 +14,7 @@ public class TestBookMongoService extends AbstractMongoDBIntegrationTestClass {
 
     @Autowired
     @Qualifier("testMongoBookService")
-    private BookService bookService;
+    private com.github.pavelhe.service.mongodb.interfaces.BookService bookService;
 
     @Override
     @Test

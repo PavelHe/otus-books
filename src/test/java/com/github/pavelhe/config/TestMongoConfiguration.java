@@ -2,8 +2,8 @@ package com.github.pavelhe.config;
 
 import java.io.*;
 
-import com.github.pavelhe.service.*;
 import com.github.pavelhe.service.mongodb.*;
+import com.github.pavelhe.service.mongodb.interfaces.*;
 import com.mongodb.*;
 import de.flapdoodle.embed.mongo.*;
 import de.flapdoodle.embed.mongo.config.*;

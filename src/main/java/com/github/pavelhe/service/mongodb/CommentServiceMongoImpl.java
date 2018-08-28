@@ -3,8 +3,8 @@ package com.github.pavelhe.service.mongodb;
 
 import java.util.*;
 
-import com.github.pavelhe.model.*;
-import com.github.pavelhe.service.*;
+import com.github.pavelhe.model.mongodb.models.*;
+import com.github.pavelhe.service.mongodb.interfaces.*;
 import org.springframework.data.mongodb.core.*;
 
 import static com.github.pavelhe.service.mongodb.QueryUtils.emptyQuery;

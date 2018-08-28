@@ -9,25 +9,20 @@ import javax.validation.constraints.*;
 import org.apache.commons.compress.utils.*;
 
 import org.springframework.core.io.*;
-import org.springframework.data.mongodb.core.mapping.*;
-import org.springframework.web.multipart.*;
+import org.springframework.util.*;
 
 @Entity
-@Document
 public class Book extends NamedModel {
 
     private String description;
-    private MultipartFile photo;
+    private byte[] photo;
     @ManyToOne
-    @DBRef
     @NotNull
     private Author author;
     @ManyToOne
-    @DBRef
     @NotNull
     private Genre genre;
     @OneToMany(mappedBy = "book", fetch = FetchType.EAGER)
-    @DBRef
     private Set<Comment> comments = new LinkedHashSet<>();
 
     public Book() {
@@ -92,35 +87,22 @@ public class Book extends NamedModel {
         this.comments = comments;
     }
 
-    public void setPhoto(MultipartFile photo) {
+    public void setPhoto(byte[] photo) {
         this.photo = photo;
     }
 
-    public MultipartFile getPhoto() {
+    public byte[] getPhoto() {
         return photo;
     }
 
-    public String base64Photo() {
-        return org.apache.commons.codec.binary.Base64.encodeBase64String(getBytesFromPhotoFile());
-    }
-
-    private boolean photoIsPresent() {
+    public void setDefaultPhoto() {
+        ClassPathResource res = new ClassPathResource("/static/img/file-empty-icon.png");
         try {
-            return photo != null && photo.getBytes().length > 0;
-        } catch (IOException e) {
-            throw new RuntimeException("Error getting bytes from MultipartFile");
-        }
-    }
-
-    private byte[] getBytesFromPhotoFile() {
-        try {
-            if (!photoIsPresent()) {
-                ClassPathResource res = new ClassPathResource("/static/img/file-empty-icon.png");
-                return IOUtils.toByteArray(res.getInputStream());
+            if (!StringUtils.isEmpty(res.getFilename())) {
+                this.photo = IOUtils.toByteArray(res.getInputStream());
             }
-            return photo.getBytes();
         } catch (IOException e) {
-            throw new RuntimeException("Error getting bytes from MultipartFile");
+            throw new RuntimeException("Error getting bytes");
         }
     }
 
