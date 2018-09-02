@@ -5,7 +5,7 @@ import java.util.*;
 import com.fasterxml.jackson.annotation.*;
 import org.springframework.data.mongodb.core.mapping.*;
 
-@Document
+@Document(collection = "genres")
 public class Genre extends NamedModel {
 
     @DBRef
@@ -19,7 +19,7 @@ public class Genre extends NamedModel {
         super(name);
     }
 
-    public Genre(Long id, String name) {
+    public Genre(String id, String name) {
         super(id, name);
     }
 

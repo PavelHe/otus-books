@@ -17,6 +17,7 @@ public class TestGenreMongoService extends AbstractMongoDBIntegrationTestClass {
     @Override
     @Test
     public void testCount() throws Exception {
+        genreService.removeAll();
         assertEquals(0, genreService.count().longValue());
         createMockGenre();
         assertEquals(1L, genreService.count().longValue());

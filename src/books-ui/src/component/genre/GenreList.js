@@ -18,7 +18,7 @@ export default class GenreList extends Component {
             isLoading: true
         });
 
-        fetch("/rest/genre")
+        fetch("/v2/genre")
             .then(response => response.json())
             .then(data => this.setState({
                 genres: data,
@@ -27,7 +27,7 @@ export default class GenreList extends Component {
     }
 
     async remove(id) {
-        await fetch(`/rest/genre/${id}`, {
+        await fetch(`/v2/genre/${id}`, {
             method: "DELETE",
             headers: {
                 'Accept': 'application/json',

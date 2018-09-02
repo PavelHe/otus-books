@@ -16,7 +16,7 @@ class GenreEdit extends Component {
 
     async componentDidMount() {
         if (this.props.match.params.id !== 'new') {
-            const genre = await (await fetch(`/rest/genre/${this.props.match.params.id}`)).json();
+            const genre = await (await fetch(`/v2/genre/${this.props.match.params.id}`)).json();
             this.setState({item: genre});
         }
     }
@@ -34,7 +34,7 @@ class GenreEdit extends Component {
         event.preventDefault();
         const {item} = this.state;
         const methodName = (item.id) ? 'PUT' : 'POST';
-        const uri = (item.id) ? `/rest/genre/${item.id}` : `/rest/genre`;
+        const uri = (item.id) ? `/v2/genre/${item.id}` : `/v2/genre`;
 
         await fetch(uri, {
             method: methodName,

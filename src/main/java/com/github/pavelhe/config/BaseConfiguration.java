@@ -1,12 +1,9 @@
 package com.github.pavelhe.config;
 
-import java.util.*;
-
+import com.github.pavelhe.model.mongodb.models.cascade.*;
 import org.springframework.context.*;
 import org.springframework.context.annotation.*;
 import org.springframework.context.support.*;
-import org.springframework.web.servlet.*;
-import org.springframework.web.servlet.i18n.*;
 
 @Configuration
 public class BaseConfiguration {
@@ -17,6 +14,11 @@ public class BaseConfiguration {
         ms.setBasename("classpath:locales/messages");
         ms.setDefaultEncoding("UTF-8");
         return ms;
+    }
+
+    @Bean
+    public CascadingMongoEventListener cascadingMongoEventListener() {
+        return new CascadingMongoEventListener();
     }
 
 }

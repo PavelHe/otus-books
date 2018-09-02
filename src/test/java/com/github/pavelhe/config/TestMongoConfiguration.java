@@ -1,17 +1,14 @@
 package com.github.pavelhe.config;
 
-import java.io.*;
-
+import com.github.pavelhe.model.mongodb.models.cascade.*;
 import com.github.pavelhe.service.mongodb.*;
 import com.github.pavelhe.service.mongodb.interfaces.*;
-import com.mongodb.*;
-import de.flapdoodle.embed.mongo.*;
-import de.flapdoodle.embed.mongo.config.*;
-import de.flapdoodle.embed.mongo.distribution.*;
-import de.flapdoodle.embed.process.runtime.*;
+import com.mongodb.MongoClient;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.context.annotation.*;
 import org.springframework.data.mongodb.core.*;
+
+import static com.github.pavelhe.config.utils.MongoUtils.startEmbeddedMongodb;
 
 @Configuration
 @PropertySource(value = "file:src/test/resources/application.properties")
@@ -26,23 +23,12 @@ public class TestMongoConfiguration {
 
     @Bean
     public MongoClient mongo() {
-        IMongoConfig mongoConfig = null;
-        try {
-            mongoConfig = new MongodConfigBuilder()
-                    .version(Version.V3_2_20)
-                    .net(new Net(host, Integer.parseInt(port), Network.localhostIsIPv6())).build();
-            MongodStarter starter = MongodStarter.getDefaultInstance();
-            MongodExecutable mongodExecutable = starter.prepare((IMongodConfig) mongoConfig);
-            mongodExecutable.start();
-            return new MongoClient(host);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return null;
+        startEmbeddedMongodb(host, Integer.parseInt(port));
+        return new MongoClient(host);
     }
 
     @Bean
-    public MongoTemplate mongoTemplate() {
+    public MongoOperations mongoTemplate() {
         return new MongoTemplate(mongo(), dbName);
     }
 
@@ -64,6 +50,11 @@ public class TestMongoConfiguration {
     @Bean
     public CommentService testMongoCommentService() {
         return new CommentServiceMongoImpl(mongoTemplate());
+    }
+
+    @Bean
+    public CascadingMongoEventListener cascadingMongoEventListener() {
+        return new CascadingMongoEventListener();
     }
 
 }

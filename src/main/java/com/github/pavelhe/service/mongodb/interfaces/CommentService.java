@@ -1,6 +1,7 @@
 package com.github.pavelhe.service.mongodb.interfaces;
 
 
+import java.math.*;
 import java.util.*;
 
 import com.github.pavelhe.model.mongodb.models.*;
@@ -12,14 +13,16 @@ public interface CommentService {
 
     List<Comment> getAll();
 
-    Comment getById(Long id);
+    Comment getById(String id);
 
     List<Comment> getByName(String authorOfComment);
 
-    void remove(Long id);
+    void remove(String id);
 
     void create(Comment comment);
 
     void update(Comment comment);
+
+    void removeAll();
 
 }

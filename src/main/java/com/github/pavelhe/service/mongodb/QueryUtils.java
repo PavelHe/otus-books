@@ -12,7 +12,7 @@ class QueryUtils {
         return Query.query(Criteria.where(fieldName).is(value));
     }
 
-    static <T extends NamedModel> T findEntityBy(String fieldName, Object value, Class<T> type, MongoTemplate template) {
+    static <T extends NamedModel> T findEntityBy(String fieldName, Object value, Class<T> type, MongoOperations template) {
         Query byId = findByValueQuery(fieldName, value);
         List<T> entities = template.find(byId, type);
         if (entities.size() == 0)

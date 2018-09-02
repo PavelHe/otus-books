@@ -1,5 +1,6 @@
 package com.github.pavelhe.service.mongodb;
 
+import java.math.*;
 import java.util.*;
 
 import com.github.pavelhe.model.mongodb.models.*;
@@ -14,9 +15,9 @@ import static com.github.pavelhe.service.mongodb.QueryUtils.findByValueQuery;
 @Service
 public class AuthorServiceMongoImpl implements AuthorService {
 
-    private MongoTemplate template;
+    private MongoOperations template;
 
-    public AuthorServiceMongoImpl(MongoTemplate template) {
+    public AuthorServiceMongoImpl(MongoOperations template) {
         this.template = template;
     }
 
@@ -31,7 +32,7 @@ public class AuthorServiceMongoImpl implements AuthorService {
     }
 
     @Override
-    public Author getById(Long id) {
+    public Author getById(String id) {
         return findEntityBy("id", id, Author.class, template);
     }
 
@@ -41,7 +42,7 @@ public class AuthorServiceMongoImpl implements AuthorService {
     }
 
     @Override
-    public void remove(Long id) {
+    public void remove(String id) {
         template.findAndRemove(findByValueQuery("id", id), Author.class);
     }
 
@@ -53,5 +54,10 @@ public class AuthorServiceMongoImpl implements AuthorService {
     @Override
     public void update(Author author) {
         template.save(author);
+    }
+
+    @Override
+    public void removeAll() {
+        template.dropCollection(Author.class);
     }
 }

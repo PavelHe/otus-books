@@ -19,7 +19,7 @@ export default class BookList extends Component {
             isLoading: true
         });
 
-        fetch("/rest/book")
+        fetch("/v2/book")
             .then(response => response.json())
             .then(data => this.setState({
                 books: data,
@@ -28,7 +28,7 @@ export default class BookList extends Component {
     }
 
     async remove(id) {
-        await fetch(`/rest/book/${id}`, {
+        await fetch(`/v2/book/${id}`, {
             method: "DELETE",
             headers: {
                 'Accept': 'application/json',

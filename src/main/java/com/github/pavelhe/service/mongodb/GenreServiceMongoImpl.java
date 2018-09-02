@@ -1,6 +1,7 @@
 package com.github.pavelhe.service.mongodb;
 
 
+import java.math.*;
 import java.util.*;
 
 
@@ -16,9 +17,9 @@ import static com.github.pavelhe.service.mongodb.QueryUtils.findEntityBy;
 @Service
 public class GenreServiceMongoImpl implements GenreService {
 
-    private MongoTemplate template;
+    private MongoOperations template;
 
-    public GenreServiceMongoImpl(MongoTemplate template) {
+    public GenreServiceMongoImpl(MongoOperations template) {
         this.template = template;
     }
 
@@ -34,7 +35,7 @@ public class GenreServiceMongoImpl implements GenreService {
     }
 
     @Override
-    public Genre getById(Long id) {
+    public Genre getById(String id) {
         return findEntityBy("id", id, Genre.class, template);
     }
 
@@ -44,7 +45,7 @@ public class GenreServiceMongoImpl implements GenreService {
     }
 
     @Override
-    public void remove(Long id) {
+    public void remove(String id) {
         template.findAndRemove(findByValueQuery("id", id), Genre.class);
     }
 
@@ -56,5 +57,10 @@ public class GenreServiceMongoImpl implements GenreService {
     @Override
     public void update(Genre genre) {
         template.save(genre);
+    }
+
+    @Override
+    public void removeAll() {
+        template.dropCollection(Genre.class);
     }
 }

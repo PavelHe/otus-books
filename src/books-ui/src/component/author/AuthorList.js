@@ -18,7 +18,7 @@ export default class AuthorList extends Component {
         this.setState({
             isLoading: true
         });
-        fetch("/rest/author")
+        fetch("/v2/author")
             .then(response => response.json())
             .then(data => this.setState({
                 authors: data,
@@ -27,7 +27,7 @@ export default class AuthorList extends Component {
     }
 
     async remove(id) {
-        await fetch(`/rest/author/${id}`, {
+        await fetch(`/v2/author/${id}`, {
             method: "DELETE",
             headers: {
                 'Accept': 'application/json',
