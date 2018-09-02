@@ -24,7 +24,7 @@ export default class CommentList extends Component {
     }
 
     async remove(id) {
-        await fetch(`/rest/comment/${id}`, {
+        await fetch(`/v2/comment/${id}`, {
             method: "DELETE",
             headers: {
                 'Accept': 'application/json',

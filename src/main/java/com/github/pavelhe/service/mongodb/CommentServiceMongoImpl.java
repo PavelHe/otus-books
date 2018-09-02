@@ -1,6 +1,7 @@
 package com.github.pavelhe.service.mongodb;
 
 
+import java.math.*;
 import java.util.*;
 
 import com.github.pavelhe.model.mongodb.models.*;
@@ -13,9 +14,9 @@ import static com.github.pavelhe.service.mongodb.QueryUtils.findEntityBy;
 
 public class CommentServiceMongoImpl implements CommentService {
 
-    private MongoTemplate template;
+    private MongoOperations template;
 
-    public CommentServiceMongoImpl(MongoTemplate template) {
+    public CommentServiceMongoImpl(MongoOperations template) {
         this.template = template;
     }
 
@@ -30,7 +31,7 @@ public class CommentServiceMongoImpl implements CommentService {
     }
 
     @Override
-    public Comment getById(Long id) {
+    public Comment getById(String id) {
         return findEntityBy("id", id, Comment.class, template);
     }
 
@@ -40,7 +41,7 @@ public class CommentServiceMongoImpl implements CommentService {
     }
 
     @Override
-    public void remove(Long id) {
+    public void remove(String id) {
         template.findAndRemove(findByValueQuery("id", id), Comment.class);
     }
 
@@ -52,5 +53,10 @@ public class CommentServiceMongoImpl implements CommentService {
     @Override
     public void update(Comment comment) {
         template.save(comment);
+    }
+
+    @Override
+    public void removeAll() {
+        template.dropCollection(Comment.class);
     }
 }

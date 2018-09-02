@@ -5,7 +5,7 @@ import java.time.format.*;
 
 import org.springframework.data.mongodb.core.mapping.*;
 
-@Document
+@Document(collection = "comments")
 public class Comment extends NamedModel {
 
     private String text;

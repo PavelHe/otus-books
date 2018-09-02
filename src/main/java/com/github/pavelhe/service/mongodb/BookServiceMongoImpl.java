@@ -1,6 +1,7 @@
 package com.github.pavelhe.service.mongodb;
 
 
+import java.math.*;
 import java.util.*;
 
 import com.github.pavelhe.model.mongodb.models.*;
@@ -15,9 +16,9 @@ import static com.github.pavelhe.service.mongodb.QueryUtils.findEntityBy;
 @Service
 public class BookServiceMongoImpl implements BookService {
 
-    private MongoTemplate template;
+    private MongoOperations template;
 
-    public BookServiceMongoImpl(MongoTemplate template) {
+    public BookServiceMongoImpl(MongoOperations template) {
         this.template = template;
     }
 
@@ -32,7 +33,7 @@ public class BookServiceMongoImpl implements BookService {
     }
 
     @Override
-    public Book getById(Long id) {
+    public Book getById(String id) {
         return findEntityBy("id", id, Book.class, template);
     }
 
@@ -42,7 +43,7 @@ public class BookServiceMongoImpl implements BookService {
     }
 
     @Override
-    public void remove(Long id) {
+    public void remove(String id) {
         template.findAndRemove(findByValueQuery("id", id), Book.class);
     }
 
@@ -55,4 +56,11 @@ public class BookServiceMongoImpl implements BookService {
     public void update(Book book) {
         template.save(book);
     }
+
+    @Override
+    public void removeAll() {
+        template.dropCollection(Book.class);
+    }
+
+
 }

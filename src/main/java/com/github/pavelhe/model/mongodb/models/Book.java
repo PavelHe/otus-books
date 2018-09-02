@@ -1,24 +1,23 @@
 package com.github.pavelhe.model.mongodb.models;
 
-import java.io.*;
 import java.util.*;
 import javax.validation.constraints.*;
 
 import com.fasterxml.jackson.annotation.*;
-import org.apache.commons.compress.utils.*;
-import org.springframework.core.io.*;
+import com.github.pavelhe.model.mongodb.models.cascade.*;
 import org.springframework.data.mongodb.core.mapping.*;
-import org.springframework.web.multipart.*;
 
-@Document
+@Document(collection = "books")
 public class Book extends NamedModel {
 
     private String description;
-    private MultipartFile photo;
+    private byte[] photo;
     @DBRef
+    @CascadeSave
     @NotNull
     private Author author;
     @DBRef
+    @CascadeSave
     @NotNull
     private Genre genre;
     @DBRef
@@ -28,7 +27,7 @@ public class Book extends NamedModel {
     public Book() {
     }
 
-    public Book(Long id, String name, Author author, Genre genre, String description) {
+    public Book(String id, String name, Author author, Genre genre, String description) {
         super(id, name);
         this.author = author;
         this.genre = genre;
@@ -87,11 +86,11 @@ public class Book extends NamedModel {
         this.comments = comments;
     }
 
-    public void setPhoto(MultipartFile photo) {
+    public void setPhoto(byte[] photo) {
         this.photo = photo;
     }
 
-    public MultipartFile getPhoto() {
+    public byte[] getPhoto() {
         return photo;
     }
 

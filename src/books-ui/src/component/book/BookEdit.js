@@ -32,12 +32,12 @@ class BookEdit extends Component {
             const book = await (await fetch(`/rest/book/${this.props.match.params.id}`)).json();
             this.setState({item: book});
         }
-        fetch("/rest/genre")
+        fetch("/v2/genre")
             .then(response => response.json())
             .then(data => this.setState({
                 genres: data
             }));
-        fetch("/rest/author")
+        fetch("/v2/author")
             .then(response => response.json())
             .then(data => this.setState({
                 authors: data
@@ -58,7 +58,7 @@ class BookEdit extends Component {
         const {value} = target;
         let item = this.state.item;
 
-        fetch(`/rest/genre/name/${value}`)
+        fetch(`/v2/genre/name/${value}`)
             .then(response => response.json())
             .then(data => {
                 item.genre = data;
@@ -74,7 +74,7 @@ class BookEdit extends Component {
         const surname = fullName[1];
         let item = this.state.item;
 
-        fetch(`/rest/author/fullname/${name}/${surname}`)
+        fetch(`/v2/author/fullname/${name}/${surname}`)
             .then(response => response.json())
             .then(data => {
                 item.author = data;
@@ -86,7 +86,7 @@ class BookEdit extends Component {
         event.preventDefault();
         const {item} = this.state;
         const methodName = (item.id) ? 'PUT' : 'POST';
-        const uri = (item.id) ? `/rest/book/${item.id}` : `/rest/book`;
+        const uri = (item.id) ? `/v2/book/${item.id}` : `/v2/book`;
 
         await fetch(uri, {
             method: methodName,

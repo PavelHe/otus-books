@@ -19,7 +19,7 @@ public abstract class AbstractMongoDBIntegrationTestClass {
     final static String MOCK_SURNAME = "mockSurname";
     final static String MOCK_DESCRIPTION = "mockDesc";
     final static String MOCK_TEXT = "mockCommentText";
-    final static Long MOCK_ID = 1L;
+    final static String MOCK_ID = "1";
 
     @After
     public void tearDown() {

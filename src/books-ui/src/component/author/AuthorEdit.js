@@ -16,7 +16,7 @@ class AuthorEdit extends Component {
 
     async componentDidMount() {
         if (this.props.match.params.id !== 'new') {
-            const author = await (await fetch(`/rest/author/${this.props.match.params.id}`)).json();
+            const author = await (await fetch(`/v2/author/${this.props.match.params.id}`)).json();
             this.setState({item: author});
         }
     }
@@ -34,7 +34,7 @@ class AuthorEdit extends Component {
         event.preventDefault();
         const {item} = this.state;
         const methodName = (item.id) ? 'PUT' : 'POST';
-        const uri = (item.id) ? `/rest/author/${item.id}` : `/rest/author`;
+        const uri = (item.id) ? `/v2/author/${item.id}` : `/v2/author`;
 
         await fetch(uri, {
             method: methodName,

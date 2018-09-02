@@ -1,28 +1,26 @@
 package com.github.pavelhe.model.mongodb.models;
 
-import javax.persistence.*;
 
-@MappedSuperclass
+import org.springframework.data.annotation.*;
+
 public abstract class BaseModel {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(nullable = false, unique = true)
-    protected Long id;
+    protected String id;
 
-    public BaseModel() {
+    BaseModel() {
 
     }
 
-    public BaseModel(Long id) {
+    BaseModel(String id) {
         this.id = id;
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 }

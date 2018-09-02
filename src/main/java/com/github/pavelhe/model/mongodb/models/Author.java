@@ -5,7 +5,7 @@ import java.util.*;
 import com.fasterxml.jackson.annotation.*;
 import org.springframework.data.mongodb.core.mapping.*;
 
-@Document
+@Document(collection = "authors")
 public class Author extends NamedModel {
 
     private String surname;
@@ -21,7 +21,7 @@ public class Author extends NamedModel {
         this.surname = surname;
     }
 
-    public Author(Long id, String name, String surname) {
+    public Author(String id, String name, String surname) {
         super(id, name);
         this.surname = surname;
     }

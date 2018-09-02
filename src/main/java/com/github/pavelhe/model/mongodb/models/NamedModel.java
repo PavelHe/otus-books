@@ -1,9 +1,7 @@
 package com.github.pavelhe.model.mongodb.models;
 
-import javax.persistence.*;
 import javax.validation.constraints.*;
 
-@MappedSuperclass
 public abstract class NamedModel extends BaseModel {
 
     @NotNull
@@ -13,7 +11,7 @@ public abstract class NamedModel extends BaseModel {
 
     }
 
-    public NamedModel(Long id, String name) {
+    public NamedModel(String id, String name) {
         super(id);
         this.name = name;
     }

@@ -17,7 +17,7 @@ class CommentEdit extends Component {
 
     async componentDidMount() {
         if (this.props.match.params.id !== 'new') {
-            const genre = await (await fetch(`/rest/comment/${this.props.match.params.id}`)).json();
+            const genre = await (await fetch(`/v2/comment/${this.props.match.params.id}`)).json();
             this.setState({item: genre});
         }
         this.setState({
@@ -38,7 +38,7 @@ class CommentEdit extends Component {
         event.preventDefault();
         const {item, bookId} = this.state;
         const methodName = (item.id) ? 'PUT' : 'POST';
-        const uri = (item.id) ? `/rest/comment/${item.id}/${bookId}` : `/rest/comment/${bookId}`;
+        const uri = (item.id) ? `/v2/comment/${item.id}/${bookId}` : `/v2/comment/${bookId}`;
 
         await fetch(uri, {
             method: methodName,
