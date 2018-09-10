@@ -3,6 +3,9 @@ DROP TABLE IF EXISTS `comment`;
 DROP TABLE IF EXISTS `book`;
 DROP TABLE IF EXISTS `genre`;
 DROP TABLE IF EXISTS `author`;
+DROP TABLE IF EXISTS `user_role`;
+DROP TABLE IF EXISTS `user`;
+DROP TABLE IF EXISTS `role`;
 
 
 CREATE TABLE `author` (
@@ -40,5 +43,36 @@ CREATE TABLE `comment` (
   ON DELETE CASCADE
   ON UPDATE CASCADE,
   PRIMARY KEY (`id`)
+);
+
+
+CREATE TABLE `user` (
+  `id`       BIGINT       NOT NULL AUTO_INCREMENT,
+  `name`     VARCHAR(120) NULL,
+  `password` TEXT         NULL,
+  PRIMARY KEY (`id`)
+);
+
+CREATE TABLE `role` (
+  `role_id` BIGINT      NOT NULL AUTO_INCREMENT,
+  `name`    VARCHAR(45) NULL,
+  PRIMARY KEY (`role_id`)
+);
+
+CREATE TABLE `user_role` (
+  `user_role_id` BIGINT NOT NULL AUTO_INCREMENT,
+  `role_id`      BIGINT NULL,
+  `user_id`      BIGINT NULL,
+  PRIMARY KEY (`user_role_id`),
+  CONSTRAINT `role_user`
+  FOREIGN KEY (`role_id`)
+  REFERENCES `role` (`role_id`)
+  ON DELETE CASCADE
+  ON UPDATE CASCADE,
+  CONSTRAINT `user_role`
+  FOREIGN KEY (`user_id`)
+  REFERENCES `user` (`id`)
+  ON DELETE CASCADE
+  ON UPDATE CASCADE
 );
 

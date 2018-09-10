@@ -31,9 +31,10 @@ public class GenreDaoJpaImpl implements GenreDao {
 
     @Override
     public Genre getByName(String genreName) {
-        TypedQuery<Genre> byNameQuery = entityManager.createQuery("SELECT g FROM Genre g WHERE g.name=:genreName", Genre.class);
-        byNameQuery.setParameter("genreName", genreName);
-        return byNameQuery.getSingleResult();
+        return QueryUtils.getEntityFromQuery("SELECT g FROM Genre g WHERE g.name=:genreName",
+                Collections.singletonMap("genreName", genreName),
+                Genre.class,
+                entityManager);
     }
 
     @Override

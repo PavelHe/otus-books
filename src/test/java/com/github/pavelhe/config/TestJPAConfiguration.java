@@ -62,4 +62,14 @@ public class TestJPAConfiguration {
         return new CommentDaoJpaImpl();
     }
 
+    @Bean
+    public UserDao testUserDaoJpa() {
+        return new UserDaoImpl();
+    }
+
+    @Bean
+    public RoleDao testRoleDaoJpa() {
+        return new RoleDaoImpl();
+    }
+
 }

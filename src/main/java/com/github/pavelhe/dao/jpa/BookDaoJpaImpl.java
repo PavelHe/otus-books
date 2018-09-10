@@ -32,9 +32,10 @@ public class BookDaoJpaImpl implements BookDao {
     @Override
     @Transactional
     public Book getByName(String bookName) {
-        TypedQuery<Book> byNameQuery = entityManager.createQuery("SELECT b FROM Book b WHERE b.name=:bookName", Book.class);
-        byNameQuery.setParameter("bookName", bookName);
-        return byNameQuery.getSingleResult();
+        return QueryUtils.getEntityFromQuery("SELECT b FROM Book b WHERE b.name=:bookName",
+                Collections.singletonMap("bookName", bookName),
+                Book.class,
+                entityManager);
     }
 
     @Override
