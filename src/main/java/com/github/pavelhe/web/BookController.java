@@ -28,7 +28,7 @@ public class BookController {
         this.genreService = genreService;
     }
 
-    @RequestMapping(value = {"/", "/book"}, method = RequestMethod.GET)
+    @RequestMapping(value = "/book", method = RequestMethod.GET)
     public String getAllBooks(Model model) {
         model.addAttribute("bookList", bookService.getAll());
         model.addAttribute("authorList", authorService.getAll());

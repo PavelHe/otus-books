@@ -9,6 +9,7 @@ import org.springframework.context.annotation.*;
 import org.springframework.core.io.*;
 import org.springframework.jdbc.core.namedparam.*;
 import org.springframework.jdbc.datasource.init.*;
+import org.springframework.security.crypto.bcrypt.*;
 
 @Configuration
 @PropertySource(value = "file:src/test/resources/application.properties")
@@ -45,5 +46,10 @@ public class TestBasicConfiguration {
     @Bean
     public ObjectMapper objectMapper() {
         return new ObjectMapper();
+    }
+
+    @Bean
+    public BCryptPasswordEncoder testPasswordEncoder() {
+        return new BCryptPasswordEncoder();
     }
 }

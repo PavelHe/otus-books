@@ -1,12 +1,9 @@
 package com.github.pavelhe.dao;
 
-import com.github.pavelhe.config.*;
 import com.github.pavelhe.model.*;
 import org.junit.runner.*;
 import org.springframework.boot.test.context.*;
-import org.springframework.test.context.*;
 import org.springframework.test.context.junit4.*;
-import org.springframework.transaction.annotation.*;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest

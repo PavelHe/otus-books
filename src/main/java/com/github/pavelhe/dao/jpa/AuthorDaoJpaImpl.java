@@ -32,9 +32,10 @@ public class AuthorDaoJpaImpl implements AuthorDao {
 
     @Override
     public Author getByName(String authorName) {
-        TypedQuery<Author> byNameQuery = entityManager.createQuery("SELECT a FROM Author a WHERE a.name=:authorName", Author.class);
-        byNameQuery.setParameter("authorName", authorName);
-        return byNameQuery.getSingleResult();
+        return QueryUtils.getEntityFromQuery("SELECT a FROM Author a WHERE a.name=:authorName",
+                Collections.singletonMap("authorName", authorName),
+                Author.class,
+                entityManager);
     }
 
     @Override
