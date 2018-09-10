@@ -23,8 +23,7 @@ import org.springframework.web.servlet.view.*;
         GenreRepository.class,
         BookRepository.class,
         CommentRepository.class,
-        AuthorRepository.class,
-        UserController.class
+        AuthorRepository.class
 },
         entityManagerFactoryRef = "entityManagerFactoryBean",
         transactionManagerRef = "testJpaTransactionManager")
