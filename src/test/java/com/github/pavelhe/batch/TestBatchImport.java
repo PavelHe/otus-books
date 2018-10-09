@@ -1,7 +1,6 @@
 package com.github.pavelhe.batch;
 
 import com.github.pavelhe.config.*;
-import com.github.pavelhe.config.utils.*;
 import com.github.pavelhe.dao.*;
 import com.github.pavelhe.service.batch.*;
 import com.github.pavelhe.service.mongodb.interfaces.*;

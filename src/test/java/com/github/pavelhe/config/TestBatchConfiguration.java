@@ -1,4 +1,4 @@
-package com.github.pavelhe.config.utils;
+package com.github.pavelhe.config;
 
 import javax.annotation.*;
 
